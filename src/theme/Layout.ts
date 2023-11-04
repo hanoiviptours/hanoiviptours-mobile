@@ -23,6 +23,15 @@ export default function ({}: ThemeVariables) {
       flexDirection: 'column',
       justifyContent: 'center',
     },
+
+    colSeperate: {
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+    },
+    colRowRight: {
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+    },
     /* Row Layouts */
     row: {
       flexDirection: 'row',
@@ -62,6 +71,9 @@ export default function ({}: ThemeVariables) {
     },
     justifyContentCenter: {
       justifyContent: 'center',
+    },
+    justifyContentStart: {
+      justifyContent: 'flex-start',
     },
     justifyContentAround: {
       justifyContent: 'space-around',

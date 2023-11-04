@@ -1,0 +1,9 @@
+{
+  "login-button": "Login",
+  "register-button": "Register an agency account",
+  "phone-input": "Phone number",
+  "password-input": "Password",
+  "register": "Register",
+  "agency": "Agency owner",
+  "agencyEmployee": "Agency employee"
+}

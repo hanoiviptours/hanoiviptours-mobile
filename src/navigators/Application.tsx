@@ -5,31 +5,45 @@ import {
   NavigationContainer,
   useNavigationContainerRef,
 } from '@react-navigation/native';
-import { Startup } from '../screens';
+import { useSelector } from 'react-redux';
 import { useTheme } from '../hooks';
 import MainNavigator from './Main';
+import AuthNavigator from './Auth';
+import { AuthState } from '../store/auth';
+import { Startup } from '../screens';
+
 import { useFlipper } from '@react-navigation/devtools';
 import { ApplicationStackParamList } from '../../@types/navigation';
+import { DefaultVariables } from '../theme/index';
 
 const Stack = createStackNavigator<ApplicationStackParamList>();
 
-// @refresh reset
+const { Colors } = DefaultVariables;
 const ApplicationNavigator = () => {
   const { Layout, darkMode, NavigationTheme } = useTheme();
-  const { colors } = NavigationTheme;
+
+  const accessToken = useSelector(
+    (state: { auth: AuthState }) => state.auth.accessToken,
+  );
 
   const navigationRef = useNavigationContainerRef();
-
   useFlipper(navigationRef);
 
   return (
-    <SafeAreaView style={[Layout.fill, { backgroundColor: colors.card }]}>
+    <SafeAreaView
+      style={[
+        Layout.fill,
+        {
+          marginBottom: accessToken ? -60 : -100,
+          backgroundColor: Colors.white,
+        },
+      ]}
+    >
       <NavigationContainer theme={NavigationTheme} ref={navigationRef}>
         <StatusBar barStyle={darkMode ? 'light-content' : 'dark-content'} />
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Startup" component={Startup} />
-          <Stack.Screen name="Main" component={MainNavigator} />
-        </Stack.Navigator>
+
+        <Stack.Screen name="Startup" component={Startup} />
+        {accessToken ? <MainNavigator /> : <AuthNavigator />}
       </NavigationContainer>
     </SafeAreaView>
   );
