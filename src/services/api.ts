@@ -1,13 +1,13 @@
 import {
   BaseQueryFn,
-  FetchArgs,
   createApi,
+  FetchArgs,
   fetchBaseQuery,
   FetchBaseQueryError,
-} from '@reduxjs/toolkit/query/react';
+} from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.API_URL,
+  baseUrl: "https://hnvjptour.cuterabbit.art",
 });
 
 const baseQueryWithInterceptor: BaseQueryFn<

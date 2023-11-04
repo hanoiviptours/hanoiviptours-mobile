@@ -3,9 +3,8 @@ import { ActivityIndicator, View } from 'react-native';
 import { useTheme } from '../../hooks';
 import { Brand } from '../../components';
 import { setDefaultTheme } from '../../store/theme';
-import { ApplicationScreenProps } from '../../../@types/navigation';
 
-const Startup = ({ navigation }: ApplicationScreenProps) => {
+const Startup = ({ navigation }: any) => {
   const { Layout, Gutters } = useTheme();
 
   const init = async () => {
@@ -14,10 +13,10 @@ const Startup = ({ navigation }: ApplicationScreenProps) => {
         resolve(true);
       }, 2000),
     );
-    await setDefaultTheme({ theme: 'default', darkMode: null });
+    setDefaultTheme({ theme: 'default', darkMode: null });
     navigation.reset({
       index: 0,
-      routes: [{ name: 'Main' }],
+      routes: [{ name: 'Login' }],
     });
   };
 

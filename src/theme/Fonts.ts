@@ -10,6 +10,9 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
       fontSize: FontSize.tiny,
       color: Colors.textGray400,
     },
+    colorPrimary: {
+      color: Colors.primaryColor,
+    },
     textSmall: {
       fontSize: FontSize.small,
       color: Colors.textGray400,
