@@ -1,5 +1,15 @@
 {
   "plane": "Vé máy bay",
   "hotel": "Khách sạn",
-  "tour": "Vé vui chơi"
+  "tour": "Vé vui chơi",
+  "topup": "Nạp tiền",
+  "transaction": "Giao dịch",
+  "topupItems": {
+    "pickvalue": "Chọn số tiền (VND)",
+    "caption": "Bạn phải chọn đúng số tiền bạn muốn nạp tiền vào tài khoản Hanoiviptours Credits",
+    "amount": "Số khác",
+    "pickbank": "Chọn ngân hàng",
+    "bankcaption": "Để quá trình nạp tiền diễn ra nhanh hơn, đại lý vui lòng chuyển tiền cùng ngân hàng hoặc chuyển 24/7 nếu khác ngân hàng.",
+    "confirm": "Xác nhận"
+  }
 }

@@ -8,22 +8,22 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
   return StyleSheet.create({
     textTiny: {
       fontSize: FontSize.tiny,
-      color: Colors.textGray400,
+      color: Colors.textGray800,
     },
     colorPrimary: {
       color: Colors.primaryColor,
     },
     textSmall: {
       fontSize: FontSize.small,
-      color: Colors.textGray400,
+      color: Colors.textGray800,
     },
     textRegular: {
       fontSize: FontSize.regular,
-      color: Colors.textGray400,
+      color: Colors.textGray800,
     },
     textLarge: {
       fontSize: FontSize.large,
-      color: Colors.textGray400,
+      color: Colors.textGray800,
     },
     textBold: {
       fontWeight: 'bold',
@@ -32,7 +32,7 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
       textTransform: 'uppercase',
     },
     titleSmall: {
-      fontSize: FontSize.small * 1.5,
+      fontSize: FontSize.small * 1.2,
       fontWeight: 'bold',
       color: Colors.textGray800,
     },

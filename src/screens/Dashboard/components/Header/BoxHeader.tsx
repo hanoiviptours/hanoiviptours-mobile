@@ -3,17 +3,28 @@ import { View, useWindowDimensions, Text } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/hooks';
-import { changeTheme, ThemeState } from '@/store/theme';
-import i18next from 'i18next';
-import { GradientBox } from '@/components';
+import { GradientBox, Icon, Avatar } from '@/components';
 import BoxWallet from './BoxWallet';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { clearToken } from '../../../../store/auth';
+import { DefaultVariables, Gutters } from '@/theme/index';
+import { headerButtons } from '../../ulities';
+const { Colors, Icons } = DefaultVariables;
 
-const BoxHeader = () => {
+const BoxHeader = ({ navigation }: any) => {
+  const { Layout, Gutters, darkMode: isDark } = useTheme();
   const { height } = useWindowDimensions();
   const { t } = useTranslation(['example']);
-  const { Layout, darkMode: isDark } = useTheme();
   const dispatch = useDispatch();
 
+  const onLogout = async () => {
+    try {
+      dispatch(clearToken());
+    } catch (e) {
+      console.log('Error:', e);
+    }
+  };
+  const buttons = headerButtons();
   return (
     <>
       <GradientBox style={[Layout.fullWidth, { display: 'flex' }]}>
@@ -23,25 +34,57 @@ const BoxHeader = () => {
               Layout.row,
               Layout.center,
               Layout.justifyContentBetween,
-              { padding: 30 },
+              { paddingTop: 60, paddingLeft: 30, paddingRight: 30 },
             ]}
           >
-            <View>
-              <Text style={{ color: 'white' }}>avatar</Text>
-            </View>
-            <View>
-              <Text style={{ color: 'white' }}>User Name</Text>
-              <Text style={{ color: 'white' }}>User ID</Text>
+            <View style={[Layout.row]}>
+              <TouchableOpacity
+                onPress={onLogout}
+                style={[Gutters.tinyRPadding]}
+              >
+                <Avatar
+                  size={40}
+                  userName="Tuan Anh"
+                  titleStyles={{ color: Colors.textGray200 }}
+                  styles={{
+                    backgroundColor: Colors.white,
+                  }}
+                />
+              </TouchableOpacity>
+              <View>
+                {buttons.map((item, index) =>
+                  item.route === 'info' ? (
+                    <Text
+                      key={index}
+                      style={[
+                        {
+                          color: Colors.white,
+                        },
+                      ]}
+                    >
+                      {item.title}
+                    </Text>
+                  ) : null,
+                )}
+              </View>
             </View>
             <View style={[Layout.row, Layout.justifyContentBetween]}>
-              <Text style={{ color: 'white' }}>Bell Icon</Text>
-              <Text style={{ color: 'white' }}>Notification Icon</Text>
+              {buttons.map((item, index) => (
+                <Icon
+                  key={index}
+                  name={item.icon}
+                  size={25}
+                  // setState={() => onChangeTheme({ darkMode: !isDark })}
+                  type={'material-community'}
+                  color={Colors.white}
+                />
+              ))}
             </View>
           </View>
         </View>
       </GradientBox>
 
-      <BoxWallet style={[]} />
+      <BoxWallet navigation={navigation} />
     </>
   );
 };

@@ -10,7 +10,6 @@ import { KeyboardTypeOptions } from 'react-native';
 const { Colors } = DefaultVariables;
 
 type Props = {
-  text?: string;
   onChangeText?: any;
   isSubmit?: boolean;
   styles?: any;
@@ -23,7 +22,6 @@ type Props = {
 };
 
 const InputForm = ({
-  text,
   onChangeText,
   isSubmit,
   styles,
@@ -34,14 +32,7 @@ const InputForm = ({
   timers,
   inputStyle,
 }: Props) => {
-  const {
-    Common,
-    Fonts,
-    Gutters,
-    Layout,
-    Images,
-    darkMode: isDark,
-  } = useTheme();
+  const { Fonts, darkMode: isDark } = useTheme();
 
   useEffect(() => {}, [timers]);
   const renderCountdown = () => {
@@ -82,4 +73,3 @@ const InputForm = ({
 };
 
 export default InputForm;
-

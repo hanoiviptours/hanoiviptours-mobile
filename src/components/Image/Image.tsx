@@ -7,7 +7,7 @@ type Props = {
   width?: DimensionValue;
   mode?: 'contain' | 'cover' | 'stretch' | 'repeat' | 'center';
   src?: any;
-  styles : any 
+  styles: any;
 };
 
 const ImageComponents = ({ height, width, mode, src, styles }: Props) => {

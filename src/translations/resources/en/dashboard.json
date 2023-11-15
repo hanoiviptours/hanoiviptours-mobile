@@ -1,5 +1,15 @@
 {
   "plane": "Plane ticket",
   "hotel": "Hotel",
-  "tour": "Amusement ticket"
+  "tour": "Amusement ticket",
+  "topup": "Top up",
+  "transaction": "Transaction",
+  "topupItems": {
+    "pickvalue": "Select value (VND)",
+    "caption": "You have to choose the correct amount of money you want to top up into the Hanoiviptours Credits account",
+    "amount": "Another amount",
+    "pickbank": "Chose Banking",
+    "bankcaption": "To expedite the deposit process, please transfer money within the same bank or use 24/7 interbank transfer if it's from a different bank.",
+    "confirm": "Confirm"
+  }
 }

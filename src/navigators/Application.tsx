@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StatusBar } from 'react-native';
+import { View, StatusBar } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
   NavigationContainer,
@@ -30,11 +30,10 @@ const ApplicationNavigator = () => {
   useFlipper(navigationRef);
 
   return (
-    <SafeAreaView
+    <View
       style={[
         Layout.fill,
         {
-          marginBottom: accessToken ? -60 : -100,
           backgroundColor: Colors.white,
         },
       ]}
@@ -45,7 +44,7 @@ const ApplicationNavigator = () => {
         <Stack.Screen name="Startup" component={Startup} />
         {accessToken ? <MainNavigator /> : <AuthNavigator />}
       </NavigationContainer>
-    </SafeAreaView>
+    </View>
   );
 };
 

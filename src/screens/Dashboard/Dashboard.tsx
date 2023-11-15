@@ -8,13 +8,13 @@ import { Colors } from '@/theme/Variables'; // updated import
 import BoxHeader from './components/Header/BoxHeader';
 import MainBody from './components/Body/MainBody';
 
-const Dashboard = () => {
+const Dashboard = ({ navigation }: any) => {
   // const { height } = useWindowDimensions();
   // const { t } = useTranslation(['example']);
   const {
     // Common,
     // Fonts,
-    // Gutters,
+    Gutters,
     Layout,
     // Images,
     darkMode: isDark,
@@ -33,19 +33,21 @@ const Dashboard = () => {
   // };
   //
   return (
-    <ScrollView
-      style={[Layout.fill, { backgroundColor: Colors.textGray100 }]}
-      contentContainerStyle={[
-        Layout.fullSize,
-        Layout.fill,
-        Layout.colCenter,
-        Layout.scrollSpaceBetween,
-      ]}
-    >
+    <ScrollView style={[Layout.fill, { backgroundColor: Colors.textGray100 }]}>
       <View
         style={[Layout.center, Layout.fullWidth, Layout.justifyContentStart]}
       >
-        <BoxHeader />
+        <BoxHeader navigation={navigation} />
+      </View>
+      <View
+        style={[
+          Layout.fill,
+          Layout.col,
+          Gutters.smallMargin,
+          // { paddingLeft: 20, paddingRight: 20 },
+          ,
+        ]}
+      >
         <MainBody />
       </View>
     </ScrollView>

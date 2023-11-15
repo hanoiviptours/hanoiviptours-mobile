@@ -1,4 +1,5 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { useNavigation } from '@react-navigation/native';
 import { Dashboard } from '../screens';
 import { useTheme } from '../hooks';
 import { Icon } from '@rneui/themed';
@@ -9,7 +10,7 @@ const { Colors, FontSize } = DefaultVariables;
 const Tab = createMaterialBottomTabNavigator();
 const BottomTab = () => {
   const { Layout, Images, Gutters } = useTheme();
-
+  const navigation = useNavigation();
   const { t } = useTranslation(['commonText']);
 
   return (
@@ -21,11 +22,11 @@ const BottomTab = () => {
         backgroundColor: Colors.white,
         borderTopColor: Colors.textGray200,
         borderTopWidth: 0.25,
+        height: 90,
       }}
     >
       <Tab.Screen
         name="Home"
-        component={Dashboard}
         options={{
           tabBarLabel: t('commonText:home'),
           tabBarIcon: ({ color }) => (
@@ -37,7 +38,9 @@ const BottomTab = () => {
             />
           ),
         }}
-      />
+      >
+        {() => <Dashboard navigation={navigation} />}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 };

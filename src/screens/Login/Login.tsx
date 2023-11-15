@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Brand } from '../../components';
@@ -9,9 +9,9 @@ import { useDoLoginMutation } from '../../services/modules/auth';
 import { setToken } from '../../store/auth';
 import { Image, InputForm, InputPassword } from '../../components';
 import { Button } from '@rneui/themed';
-import { Avatar } from '@rneui/themed';
 import { buttonGroup, registerButtonGroup } from './ulities';
 import { DefaultVariables } from '../../theme/index';
+import RenderRegisterButton from './components/RenderRegisterButton';
 
 import BottomDrawer, {
   BottomDrawerMethods,
@@ -20,7 +20,7 @@ import BottomDrawer, {
 import { Layout as Container } from '../../components';
 import { ApplicationScreenProps } from '../../../@types/navigation';
 
-const { Colors, Width, Icons } = DefaultVariables
+const { Colors, Width, Icons } = DefaultVariables;
 
 const Login = ({ navigation }: ApplicationScreenProps) => {
   const [userNumber, onChangeUserNumber] = useState('tpazyot127@gmail.com');
@@ -43,11 +43,6 @@ const Login = ({ navigation }: ApplicationScreenProps) => {
     },
   });
 
-  const regButtonGroupItems = registerButtonGroup({
-    registerButton: t('login:register'),
-    agency: t('login:agency'),
-    agencyEmployee: t('login:agencyEmployee'),
-  });
   const openBottomDrawer = () => {
     return bottomDrawerRef?.current?.open();
   };
@@ -82,55 +77,6 @@ const Login = ({ navigation }: ApplicationScreenProps) => {
   // const onPressEmployee = () => {
   //   navigation.navigate('RegisterAgency');
   // };
-  const renderRegisterButton = () => (
-    <View
-      style={[
-        Layout.fullHeight,
-        Layout.fill,
-        Layout.colSeperate,
-        {
-          backgroundColor: Colors.white,
-        },
-      ]}
-    >
-      <View
-        style={[
-          Layout.center,
-          Layout.fullWidth,
-          Layout.justifyContentAround,
-          Layout.row,
-        ]}
-      >
-        {regButtonGroupItems.map((item, index) => (
-          <View key={index} style={[Layout.center]}>
-            <Avatar
-              size={item.avatarSize}
-              rounded
-              icon={{ name: item.icon, type: item.iconType }}
-              containerStyle={{ backgroundColor: item.avatarBg }}
-            />
-            <Text
-              style={[
-                Fonts.textSmall,
-                Fonts.textBold,
-                Gutters.superTinyBPadding,
-              ]}
-            >
-              {item.text}
-            </Text>
-            <Button
-              buttonStyle={{ ...item.buttonStyle }}
-              containerStyle={{ ...item.containerStyle }}
-              title={isLoading ? <ActivityIndicator /> : item.title}
-              type={item.type}
-              onPress={() => onPressAgency('Register')}
-              titleStyle={{ ...item.titleStyle }}
-            />
-          </View>
-        ))}
-      </View>
-    </View>
-  );
 
   return (
     <Container>
@@ -146,9 +92,10 @@ const Login = ({ navigation }: ApplicationScreenProps) => {
       >
         <View
           style={[
-            Layout.center,
+            Layout.fullHeight,
+            Layout.col,
+            Layout.alignItemsCenter,
             Layout.fullWidth,
-            Layout.justifyContentBetween,
           ]}
         >
           <Brand height={200} width={200} />
@@ -196,9 +143,15 @@ const Login = ({ navigation }: ApplicationScreenProps) => {
           ))}
         </View>
         <BottomDrawer initialHeight={200} ref={bottomDrawerRef}>
-          {renderRegisterButton()}
+          <RenderRegisterButton
+            isLoading={isLoading}
+            onPressAgency={onPressAgency}
+          />
         </BottomDrawer>
-        <Image height={300} width={'100%'} src="flight" />
+      </View>
+
+      <View style={[Layout.justifyContentEnd]}>
+        <Image height={200} styles={{}} width={'100%'} src="flight" />
       </View>
     </Container>
   );

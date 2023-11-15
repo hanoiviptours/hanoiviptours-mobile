@@ -14,11 +14,7 @@ import Icon from './Icon';
 
 const { Colors, Icons } = DefaultVariables;
 const Layout = ({ children }: any) => {
-  const {
-    Gutters,
-    Layout,
-    darkMode: isDark,
-  } = useTheme();
+  const { Gutters, Layout, darkMode: isDark } = useTheme();
 
   const dispatch = useDispatch();
   const onChangeTheme = ({ theme, darkMode }: Partial<ThemeState>) => {

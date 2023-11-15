@@ -1,45 +1,38 @@
 import React, { CSSProperties } from 'react';
 import { View, Text, useWindowDimensions } from 'react-native';
 import { useTheme } from '@/hooks';
-import { ShadowBox } from '@/components';
-import { Colors } from '@/theme/Variables';
 import { useTranslation } from 'react-i18next';
-import { Layout } from 'react-native-reanimated';
+import { Plane, Hotel, Ticket } from '@/theme/assets/icons';
 
 type BoxWalletProps = {
   style?: CSSProperties;
 };
+const iconStyle = 90;
 const MainBody = ({ style }: BoxWalletProps) => {
-  const { Layout, darkMode: isDark } = useTheme();
+  const { Fonts, Layout, darkMode: isDark } = useTheme();
   // const { width, height } = useWindowDimensions();
   const { t } = useTranslation(['dashboard']);
 
   const listIcon = [
     {
-      icon: 'plane',
+      icon: <Plane width={iconStyle} height={iconStyle} />, // adjust the values as needed
       label: t('dashboard:plane'),
     },
     {
-      icon: 'icon',
+      icon: <Hotel width={iconStyle} height={iconStyle} />, // adjust the values as needed
       label: t('dashboard:hotel'),
     },
     {
-      icon: 'icon',
+      icon: <Ticket width={iconStyle} height={iconStyle} />, // adjust the values as needed
       label: t('dashboard:tour'),
     },
   ];
   return (
-    <View
-      style={[
-        Layout.fullWidth,
-        Layout.row,
-        Layout.justifyContentBetween,
-        { paddingLeft: 20, paddingRight: 20 },
-      ]}
-    >
+    <View style={[Layout.row, Layout.justifyContentBetween]}>
       {listIcon.map((item, index) => (
-        <View>
-          <Text>{item.label}</Text>
+        <View style={[Layout.alignItemsCenter]} key={index}>
+          {item.icon}
+          <Text style={[Fonts.textTiny]}>{item.label}</Text>
         </View>
       ))}
     </View>

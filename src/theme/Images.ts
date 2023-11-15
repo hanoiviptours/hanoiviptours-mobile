@@ -5,9 +5,9 @@ export default function ({}: ThemeVariables) {
     logo: require('./assets/images/logo.png'),
     flight: require('./assets/images/background-login.png'),
     icons: {
-      colors: require('./assets/images/colorswatch.png'),
-      send: require('./assets/images/send.png'),
-      translate: require('./assets/images/translate.png'),
+      plane: require('./assets/icons/plane.svg'),
+      hotel: require('./assets/icons/hotel.svg'),
+      ticket: require('./assets/icons/ticket.svg'),
     },
   };
 }

@@ -10,10 +10,11 @@ const { Colors, FontSize } = DefaultVariables;
 
 type HeaderProps = {
   title: string;
+  style?: any;
 };
-const Header = ({ title }: HeaderProps) => {
+const Header = ({ title, style }: HeaderProps) => {
   const navigation = useNavigation();
-  const { Layout, darkMode: isDark } = useTheme();
+  const { Layout, Fonts, darkMode: isDark } = useTheme();
   const handleGoBack = () => {
     navigation.goBack();
   };
@@ -27,13 +28,21 @@ const Header = ({ title }: HeaderProps) => {
           paddingHorizontal: 16,
           paddingVertical: 8,
           backgroundColor: Colors.white,
+          borderBottomWidth: 2,
+          borderBottomColor: Colors.textGray200,
+          ...style,
         },
       ]}
     >
       <TouchableOpacity onPress={handleGoBack}>
-        <Icon name="arrow-back" size={24} color="#333" type={'material'} />
+        <Icon
+          name="chevron-left"
+          size={35}
+          color={Colors.primaryColor}
+          type={'material'}
+        />
       </TouchableOpacity>
-      <Text style={{ fontSize: FontSize.regular, color: '#333' }}>{title}</Text>
+      <Text style={[Fonts.textRegular]}>{title}</Text>
       <View style={{ width: 24 }} />
     </View>
   );

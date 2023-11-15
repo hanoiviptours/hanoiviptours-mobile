@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/HanoiviptoursMobile.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/HanoiviptoursMobile.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1387181065/HanoiviptoursMobile.react-native-gesture-handler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/1387181065/HanoiviptoursMobile.react-native-gesture-handler.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1443386216/HanoiviptoursMobile.react-native-mmkv.main.iml" filepath="$PROJECT_DIR$/.idea/modules/1443386216/HanoiviptoursMobile.react-native-mmkv.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1653225357/HanoiviptoursMobile.react-native-reanimated.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-1653225357/HanoiviptoursMobile.react-native-reanimated.main.iml" />
+    </modules>
+  </component>
+</project>

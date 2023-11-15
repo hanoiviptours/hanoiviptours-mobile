@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 import { useTheme } from '../../hooks';
-import { changeTheme, ThemeState } from '../../store/theme';
+// import { changeTheme, ThemeState } from '../../store/theme';
 import { Icon as LibIcon } from '@rneui/themed';
 import { Colors } from '../../theme/Variables';
 

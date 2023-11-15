@@ -13,11 +13,11 @@ type GradientBoxProps = {
 const GradientBox = ({ children, style, bottomCurve }: GradientBoxProps) => {
   const { Layout, Gutters, darkMode: isDark } = useTheme();
   const { height } = useWindowDimensions();
-  const curveSize = height * 1; // adjust this value to change the size of the curve
+  const curveSize = height * 5;
 
   const styles = StyleSheet.create({
     parent: {
-      height: 120,
+      height: 160,
       width: '100%',
       transform: [{ scaleX: 2 }],
       borderBottomStartRadius: curveSize,

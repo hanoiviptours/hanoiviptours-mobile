@@ -73,11 +73,17 @@ export const buttonGroup = ({ label, userPassword, userNumber }: Props) => {
   return button;
 };
 
+interface registerButtonGroupProps {
+  registerButton: string;
+  agency: string;
+  agencyEmployee: string;
+}
+
 export const registerButtonGroup = ({
   registerButton,
   agency,
   agencyEmployee,
-}: Props) => {
+}: registerButtonGroupProps) => {
   const button = [
     {
       title: registerButton,
@@ -100,8 +106,6 @@ export const registerButtonGroup = ({
         marginHorizontal: 30,
         marginVertical: 10,
       },
-      type: 'primary',
-      buttonType : 'agency',
       titleStyle: {
         fontSize: FontSize.small,
         color: Colors.white,
@@ -129,8 +133,6 @@ export const registerButtonGroup = ({
         marginHorizontal: 30,
         marginVertical: 10,
       },
-      type: 'primary',
-      buttonType : 'employee',
       titleStyle: {
         fontSize: FontSize.small,
         color: Colors.white,
