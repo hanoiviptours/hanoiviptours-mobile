@@ -4,12 +4,15 @@ import { View, StyleSheet, FlexAlignType } from 'react-native';
 import { useTheme } from '../../hooks';
 
 type ButtonProps = {
-  type: 'primary' | 'fill' | 'outline' | 'clear' | 'link';
+  type?: 'fill' | 'primary' | 'outline' | 'link' | 'clear';
   align?: 'center' | 'left' | 'right' | 'auto' | 'justify';
   viewStyle?: any;
   buttonStyle?: any;
-  title: string;
+  title?: string;
+  height?: number;
   radius: number;
+  disabled?: boolean;
+  onPress?: () => void;
 };
 
 const Button = ({
@@ -18,7 +21,10 @@ const Button = ({
   viewStyle,
   buttonStyle,
   title,
+  height = 40,
   radius = 0,
+  disabled = false,
+  onPress,
 }: ButtonProps) => {
   const { Colors, darkMode: isDark } = useTheme();
 
@@ -32,9 +38,11 @@ const Button = ({
     <View style={[styles.container, viewStyle]}>
       <RNButton
         title={title}
+        disabled={disabled}
+        onPress={onPress}
         containerStyle={{
           width: '90%',
-          height: 40,
+          height: height,
           marginHorizontal: 30,
           marginVertical: 10,
         }}
@@ -48,7 +56,7 @@ const Button = ({
           },
           type === 'clear' && { backgroundColor: 'transparent' },
           type === 'link' && { backgroundColor: 'transparent' },
-          { borderRadius: radius },
+          { borderRadius: radius, height: height },
           buttonStyle,
         ]}
         titleStyle={[
@@ -57,6 +65,7 @@ const Button = ({
           type === 'outline' && { color: Colors.textGray200 },
           type === 'clear' && { color: Colors.textGray200 },
           type === 'link' && { color: Colors.primary },
+          { textAlign: 'center' },
         ]}
       />
     </View>

@@ -122,6 +122,12 @@ export default function ({}: ThemeVariables) {
     rotate90Inverse: {
       transform: [{ rotate: '-90deg' }],
     },
+    leftAlignAuto: {
+      marginLeft: 'auto',
+    },
+    rightAlignAuto: {
+      marginRight: 'auto',
+    },
     // Position
     relative: {
       position: 'relative',

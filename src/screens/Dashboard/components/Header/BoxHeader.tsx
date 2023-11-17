@@ -27,7 +27,7 @@ const BoxHeader = ({ navigation }: any) => {
   const buttons = headerButtons();
   return (
     <>
-      <GradientBox style={[Layout.fullWidth, { display: 'flex' }]}>
+      <GradientBox>
         <View style={[Layout.fill]}>
           <View
             style={[

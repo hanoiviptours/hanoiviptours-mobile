@@ -23,7 +23,6 @@ type Props = {
 
 const InputForm = ({
   onChangeText,
-  isSubmit,
   styles,
   placeholder,
   keyboardType,

@@ -1,0 +1,15 @@
+{
+  "buttontype": "Một chiều/Khứ hồi",
+  "buttoncity": "Nhiều thành phố",
+  "confirm": "Tìm kiếm",
+  "command": "Yêu cầu giá đặc biệt",
+  "subCommand": "Du học sinh - Lao động - Vé đoàn",
+  "ticket": "Săn vé",
+  "subTicket": "Tìm kiếm vé máy bay tốt nhất trong tháng",
+  "notifi": "Báo vé giá rẻ",
+  "subNotifi": "Đăng ký nhận thông báo giá rẻ",
+  "reg": "Đăng ký thẻ Hội viên",
+  "subReg": "Đăng ký thẻ Hội viên với hãng hàng không",
+  "return": "Điều kiện hoàn hủy",
+  "subReturn": "Xem điều kiện hoàn hủy của các hàng hàng không"
+}

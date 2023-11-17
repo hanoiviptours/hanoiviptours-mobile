@@ -1,11 +1,12 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
+import { Platform } from 'react-native';
 import { Dashboard } from '../screens';
 import { useTheme } from '../hooks';
 import { Icon } from '@rneui/themed';
 import { useTranslation } from 'react-i18next';
 import { DefaultVariables } from '../theme/index';
-const { Colors, FontSize } = DefaultVariables;
+const { Colors } = DefaultVariables;
 
 const Tab = createMaterialBottomTabNavigator();
 const BottomTab = () => {
@@ -13,6 +14,7 @@ const BottomTab = () => {
   const navigation = useNavigation();
   const { t } = useTranslation(['commonText']);
 
+  const height = Platform.OS === 'ios' ? 80 : 70;
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -22,7 +24,7 @@ const BottomTab = () => {
         backgroundColor: Colors.white,
         borderTopColor: Colors.textGray200,
         borderTopWidth: 0.25,
-        height: 90,
+        height: height,
       }}
     >
       <Tab.Screen

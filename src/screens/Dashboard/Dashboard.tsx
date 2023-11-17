@@ -48,7 +48,7 @@ const Dashboard = ({ navigation }: any) => {
           ,
         ]}
       >
-        <MainBody />
+        <MainBody navigation={navigation} />
       </View>
     </ScrollView>
   );

@@ -1,3 +1,9 @@
 export { default as Plane } from './plane.svg';
 export { default as Hotel } from './hotel.svg';
 export { default as Ticket } from './ticket.svg';
+export { default as PlaneCommand } from './plane-command.svg';
+export { default as PlaneTicket } from './plane-ticket.svg';
+export { default as PlaneNotifi } from './plane-notifi.svg';
+export { default as PlaneReg } from './plane-reg.svg';
+export { default as PlaneReturn } from './plane-return.svg';
+export { default as Reverse } from './reverse.svg';

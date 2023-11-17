@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { ApplicationScreenProps } from '../../@types/navigation';
 import { Icon } from '@rneui/themed';
 
 import { useTheme } from '../hooks';
@@ -11,8 +10,9 @@ const { Colors, FontSize } = DefaultVariables;
 type HeaderProps = {
   title: string;
   style?: any;
+  borderBottom?: boolean;
 };
-const Header = ({ title, style }: HeaderProps) => {
+const Header = ({ title, style, borderBottom }: HeaderProps) => {
   const navigation = useNavigation();
   const { Layout, Fonts, darkMode: isDark } = useTheme();
   const handleGoBack = () => {
@@ -23,17 +23,17 @@ const Header = ({ title, style }: HeaderProps) => {
       style={[
         Layout.rowCenter,
         Layout.justifyContentBetween,
-
+        borderBottom && {
+          borderBottomWidth: 2,
+          borderBottomColor: Colors.textGray200,
+        },
         {
           paddingHorizontal: 16,
           paddingVertical: 8,
           backgroundColor: Colors.white,
-          borderBottomWidth: 2,
-          borderBottomColor: Colors.textGray200,
           ...style,
         },
-      ]}
-    >
+      ]} >
       <TouchableOpacity onPress={handleGoBack}>
         <Icon
           name="chevron-left"

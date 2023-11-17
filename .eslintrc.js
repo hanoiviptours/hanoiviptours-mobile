@@ -5,7 +5,7 @@ module.exports = {
   root: true,
   extends: '@react-native',
   rules: {
-    'react-hooks/exhaustive-deps': 'off',
+    'react-hooks/exhaustive-deps': 'on',
     quotes: ['error', 'single'],
     'object-curly-spacing': ['error', 'always'],
     'array-bracket-spacing': ['error', 'never'],

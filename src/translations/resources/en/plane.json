@@ -1,0 +1,15 @@
+{
+  "buttontype": "One way/Round trip",
+  "buttoncity": "Multiple cities",
+  "confirm": "Search",
+  "command": "Special price request",
+  "subCommand": "Students - Workers - Group tickets",
+  "ticket": "Hunt for tickets",
+  "subTicket": "Find the best airfares of the month",
+  "notifi": "Cheap ticket alert",
+  "subNotifi": "Subscribe to receive notifications for cheap prices",
+  "reg": "Member card registration",
+  "subReg": "Register for a membership card with the airline",
+  "return": "Refund and cancellation policy",
+  "subReturn": "View refund and cancellation policies of various airlines"
+}

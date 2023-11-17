@@ -5,6 +5,7 @@ import login from './login.json';
 import register from './register.json';
 import commonText from './commonText.json';
 import dashboard from './dashboard.json';
+import plane from './plane.json';
 
 export default {
   common,
@@ -14,4 +15,5 @@ export default {
   register,
   commonText,
   dashboard,
+  plane,
 };

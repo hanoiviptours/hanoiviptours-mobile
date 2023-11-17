@@ -1,21 +1,22 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Brand } from '../../components';
 import { useTheme, useToast } from '../../hooks';
 import { useDoLoginMutation } from '../../services/modules/auth';
-
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { setToken } from '../../store/auth';
-import { Image, InputForm, InputPassword } from '../../components';
-import { Button } from '@rneui/themed';
-import { buttonGroup, registerButtonGroup } from './ulities';
+import {
+  Image,
+  InputForm,
+  Button,
+  InputPassword,
+  BottomDrawer,
+} from '../../components';
+import { buttonGroup } from './ulities';
 import { DefaultVariables } from '../../theme/index';
 import RenderRegisterButton from './components/RenderRegisterButton';
-
-import BottomDrawer, {
-  BottomDrawerMethods,
-} from 'react-native-animated-bottom-drawer';
 
 import { Layout as Container } from '../../components';
 import { ApplicationScreenProps } from '../../../@types/navigation';
@@ -23,29 +24,24 @@ import { ApplicationScreenProps } from '../../../@types/navigation';
 const { Colors, Width, Icons } = DefaultVariables;
 
 const Login = ({ navigation }: ApplicationScreenProps) => {
-  const [userNumber, onChangeUserNumber] = useState('tpazyot127@gmail.com');
-  const [userPassword, onChangeUserPassword] = useState('123123');
+  const [userNumber, onChangeUserNumber] = useState('');
+  const [userPassword, onChangeUserPassword] = useState('');
+
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const { showToast } = useToast({ message: 'Login Success', type: 'success' });
-  const bottomDrawerRef = useRef<BottomDrawerMethods>(null);
 
   const { t } = useTranslation(['login']);
-  const { Fonts, Gutters, Layout, darkMode: isDark } = useTheme();
+  const { Layout, darkMode: isDark } = useTheme();
   const dispatch = useDispatch();
 
   const [doLogin, { data, isSuccess, isLoading }] = useDoLoginMutation();
 
   const buttonGroupItems = buttonGroup({
-    userNumber: userNumber,
-    userPassword: userPassword,
     label: {
       loginButton: t('login:login-button'),
       registerButton: t('login:register-button'),
     },
   });
-
-  const openBottomDrawer = () => {
-    return bottomDrawerRef?.current?.open();
-  };
 
   const onLogin = async () => {
     try {
@@ -69,91 +65,93 @@ const Login = ({ navigation }: ApplicationScreenProps) => {
     }
   };
 
+  // callbacks
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+
   const onPressAgency = (name: string) => {
-    bottomDrawerRef?.current?.close();
+    bottomSheetModalRef.current?.close();
     navigation.navigate('Register');
   };
-  //
-  // const onPressEmployee = () => {
-  //   navigation.navigate('RegisterAgency');
-  // };
 
   return (
-    <Container>
-      <View
-        style={[
-          Layout.fullHeight,
-          Layout.fill,
-          Layout.colSeperate,
-          {
-            backgroundColor: isDark ? Colors.backgroundDark : Colors.white,
-          },
-        ]}
-      >
+    <>
+      <Container>
         <View
           style={[
             Layout.fullHeight,
-            Layout.col,
-            Layout.alignItemsCenter,
-            Layout.fullWidth,
+            Layout.fill,
+            Layout.colSeperate,
+            {
+              backgroundColor: isDark ? Colors.backgroundDark : Colors.white,
+            },
           ]}
         >
-          <Brand height={200} width={200} />
-          <InputForm
-            text={userNumber}
-            onChangeText={onChangeUserNumber}
-            icon={Icons.phone}
-            keyboardType="numeric"
-            styles={{ width: Width.medium }}
-            placeholder={t('login:phone-input')}
-          />
+          <View
+            style={[Layout.fullHeight, Layout.col, Layout.alignItemsCenter]}
+          >
+            <Brand height={200} width={200} />
+            <InputForm
+              onChangeText={onChangeUserNumber}
+              icon={Icons.phone}
+              keyboardType="numeric"
+              styles={{ width: Width.medium }}
+              placeholder={t('login:phone-input')}
+            />
 
-          <InputPassword
-            text={userPassword}
-            onChangeText={onChangeUserPassword}
-            styles={{ width: Width.medium }}
-            placeholder={t('login:password-input')}
-          />
+            <InputPassword
+              onChangeText={onChangeUserPassword}
+              styles={{ width: Width.medium }}
+              placeholder={t('login:password-input')}
+            />
 
-          {buttonGroupItems.map((item, index) => (
-            <View key={index}>
-              {item.type === 'clear' ? (
-                <Button
-                  buttonStyle={[Layout.fill]}
-                  containerStyle={{ ...item.containerStyle }}
-                  title={item.title}
-                  type={item.type}
-                  titleStyle={{ color: 'rgba(78, 116, 289, 1)' }}
-                />
-              ) : (
-                <Button
-                  title={item.title}
-                  buttonStyle={{ ...item.buttonStyle }}
-                  containerStyle={{ ...item.containerStyle }}
-                  type={item.type}
-                  onPress={() =>
-                    item.buttonType === 'register'
-                      ? openBottomDrawer()
-                      : onLogin()
-                  }
-                  titleStyle={{ ...item.titleStyle }}
-                />
-              )}
-            </View>
-          ))}
+            {buttonGroupItems.map((item, index) => (
+              <View key={index} style={[Layout.fullWidth]}>
+                {item.type === 'clear' ? (
+                  <Button
+                    viewStyle={{}}
+                    title={item.title}
+                    type={item.type}
+                    align="center"
+                    radius={30}
+                  />
+                ) : (
+                  <Button
+                    viewStyle={{}}
+                    disabled={
+                      item.buttonType === 'login' &&
+                      userNumber === '' &&
+                      userPassword === ''
+                    }
+                    title={item.title}
+                    type={item.type}
+                    align="center"
+                    onPress={
+                      item.buttonType === 'register'
+                        ? handlePresentModalPress
+                        : onLogin
+                    }
+                    radius={30}
+                  />
+                )}
+              </View>
+            ))}
+          </View>
         </View>
-        <BottomDrawer initialHeight={200} ref={bottomDrawerRef}>
-          <RenderRegisterButton
-            isLoading={isLoading}
-            onPressAgency={onPressAgency}
-          />
-        </BottomDrawer>
-      </View>
 
-      <View style={[Layout.justifyContentEnd]}>
-        <Image height={200} styles={{}} width={'100%'} src="flight" />
-      </View>
-    </Container>
+        <View style={[Layout.justifyContentEnd]}>
+          <Image height={200} styles={{}} width={'100%'} src="flight" />
+        </View>
+      </Container>
+
+      <BottomDrawer ref={bottomSheetModalRef}>
+        <RenderRegisterButton
+          isLoading={isLoading}
+          onPressAgency={onPressAgency}
+        />
+      </BottomDrawer>
+    </>
   );
 };
 

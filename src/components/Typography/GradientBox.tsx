@@ -1,6 +1,6 @@
 import React, { CSSProperties, ReactNode } from 'react';
 import { useTheme } from '../../hooks';
-import { View, useWindowDimensions, StyleSheet } from 'react-native';
+import { View, useWindowDimensions, StyleSheet, Platform } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Colors } from '../../theme/Variables';
 
@@ -10,15 +10,16 @@ type GradientBoxProps = {
   bottomCurve?: boolean;
 };
 
-const GradientBox = ({ children, style, bottomCurve }: GradientBoxProps) => {
+const GradientBox = ({ children }: GradientBoxProps) => {
   const { Layout, Gutters, darkMode: isDark } = useTheme();
   const { height } = useWindowDimensions();
+  const margin = Platform.OS === 'ios' ? 0 : -40;
   const curveSize = height * 5;
-
   const styles = StyleSheet.create({
     parent: {
       height: 160,
       width: '100%',
+      marginTop: margin,
       transform: [{ scaleX: 2 }],
       borderBottomStartRadius: curveSize,
       borderBottomEndRadius: curveSize,
