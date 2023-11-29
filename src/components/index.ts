@@ -11,6 +11,8 @@ export { default as ImagePicker } from './Common/ImagePicker';
 export { default as Avatar } from './Common/Avatar';
 export { default as Switch } from './Common/Switch';
 export { default as BottomDrawer } from './Common/BottomDrawer';
+export { default as RangeDatePicker } from './Common/RangeDatePicker';
+export { default as NumberChoosing } from './Common/NumberChoosing';
 
 //TYPOGRAPHY
 export { default as Layout } from './Typography/Layout';

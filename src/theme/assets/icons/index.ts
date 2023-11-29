@@ -7,3 +7,6 @@ export { default as PlaneNotifi } from './plane-notifi.svg';
 export { default as PlaneReg } from './plane-reg.svg';
 export { default as PlaneReturn } from './plane-return.svg';
 export { default as Reverse } from './reverse.svg';
+export { default as GroupCustomer } from './group-customer.svg';
+export { default as VnaIcon } from './vna.svg';
+export { default as VjIcon } from './vj.svg';

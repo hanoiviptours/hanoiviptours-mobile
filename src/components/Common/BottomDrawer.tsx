@@ -9,11 +9,12 @@ import {
 
 type BottomDrawerProps = {
   children: React.ReactNode;
+  snapPoint: string;
 };
 
 const BottomDrawer = forwardRef<BottomSheetModal, BottomDrawerProps>(
-  ({ children }, ref) => {
-    const snapPoints = useMemo(() => ['25%', '25%'], []);
+  ({ children, snapPoint }, ref) => {
+    const snapPoints = useMemo(() => [snapPoint, snapPoint], []);
     const handleSheetChanges = useCallback((index: number) => {
       console.log('handleSheetChanges', index);
     }, []);

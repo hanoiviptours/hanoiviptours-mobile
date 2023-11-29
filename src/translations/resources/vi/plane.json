@@ -11,5 +11,14 @@
   "reg": "Đăng ký thẻ Hội viên",
   "subReg": "Đăng ký thẻ Hội viên với hãng hàng không",
   "return": "Điều kiện hoàn hủy",
-  "subReturn": "Xem điều kiện hoàn hủy của các hàng hàng không"
+  "subReturn": "Xem điều kiện hoàn hủy của các hàng hàng không",
+  "adult": "Người lớn",
+  "adultAge": "Trên 12 tuổi",
+  "children": "Trẻ em",
+  "childrenAge": "Từ 2 đến 12 tuổi",
+  "baby": "Em bé",
+  "babyAge": "Dưới 2 tuổi",
+  "sort": "Sắp xếp",
+  "filter": "Bộ Lọc",
+  "compact": "Rút gọn"
 }

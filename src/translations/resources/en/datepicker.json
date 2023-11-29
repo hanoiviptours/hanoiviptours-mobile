@@ -1,0 +1,16 @@
+{
+  "save": "Save",
+  "selectSingle": "Select date",
+  "selectMultiple": "Select dates",
+  "selectRange": "Select period",
+  "notAccordingToDateFormat": "Date format must be {{inputFormat}}",
+  "mustBeHigherThan": "Must be later than {{date}}",
+  "mustBeLowerThan": "Must be earlier than {{date}}",
+  "mustBeBetween": "Must be between {{startDate}} - {{endDate}}",
+  "dateIsDisabled": "Day is not allowed",
+  "previous": "Previous",
+  "next": "Next",
+  "typeInDate": "Type in date",
+  "pickDateFromCalendar": "Pick date from calendar",
+  "close": "Close"
+}

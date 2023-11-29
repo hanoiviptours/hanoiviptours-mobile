@@ -15,6 +15,7 @@ export const Colors = {
   inputBackground: '#FFFFFF',
   white: '#ffffff',
   black: '#000000',
+  orange: '#FE6B37',
   backgroundDark: '#DFDFDF',
   //Typography
   primaryColor: '#2FA2C1',
@@ -23,6 +24,7 @@ export const Colors = {
   textLink: 'rgba(78, 116, 289, 1)',
   textGray800: '#000000',
   textGray400: '#4D4D4D',
+  textGray300: '#727272',
   textGray200: '#A1A1A1',
   textGray150: '#e2e2e2',
   textGray100: '#f5f5f5',
@@ -61,9 +63,10 @@ export const NavigationColors: Partial<ThemeNavigationColors> = {
  * FontSize
  */
 export const FontSize = {
-  tiny: 14,
-  small: 16,
-  regular: 20,
+  superTiny: 11,
+  tiny: 13,
+  small: 15,
+  regular: 17,
   large: 40,
 };
 export const Width = {

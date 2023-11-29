@@ -1,11 +1,13 @@
 import React from 'react';
-import { Topup, PlaneOrder } from '../screens';
+import { Topup, PlaneList, PlaneOrder } from '../screens';
+import { Icon } from '@rneui/themed';
 import { Platform } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import BottomTab from './BottomTabNavigator';
 import Header from './Header';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
+import { Colors } from '@/theme/Variables';
 
 const Stack = createStackNavigator();
 
@@ -37,6 +39,27 @@ const mainNavigatorOptions = (t: TFunction) => [
     ),
     name: 'PlaneOrder',
     component: PlaneOrder,
+  },
+  {
+    headerShown: true,
+    header: (props: any) => (
+      <Header
+        style={{ paddingTop: paddingTop }}
+        title={props.route.params?.title}
+        subTitle={props.route.params?.subTitle}
+        borderBottom
+        rightIcon={
+          <Icon
+            name="edit-note"
+            size={30}
+            color={Colors.primaryColor}
+            type="material"
+          />
+        }
+      />
+    ),
+    name: 'PlaneList',
+    component: PlaneList,
   },
 ];
 

@@ -6,9 +6,13 @@ import { ThemeVariables } from '../../@types/theme';
 
 export default function ({ FontSize, Colors }: ThemeVariables) {
   return StyleSheet.create({
+    textSuperTiny: {
+      fontSize: FontSize.superTiny,
+      color: Colors.textGray400,
+    },
     textTiny: {
       fontSize: FontSize.tiny,
-      color: Colors.textGray800,
+      color: Colors.textGray400,
     },
     colorPrimary: {
       color: Colors.primaryColor,

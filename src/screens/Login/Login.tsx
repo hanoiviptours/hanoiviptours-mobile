@@ -145,7 +145,7 @@ const Login = ({ navigation }: ApplicationScreenProps) => {
         </View>
       </Container>
 
-      <BottomDrawer ref={bottomSheetModalRef}>
+      <BottomDrawer snapPoint="25%" ref={bottomSheetModalRef}>
         <RenderRegisterButton
           isLoading={isLoading}
           onPressAgency={onPressAgency}

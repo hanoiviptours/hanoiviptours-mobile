@@ -4,6 +4,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 export type MainParamsList = {
   Main: undefined;
   Auth: undefined;
+  PlaneList: undefined;
 };
 
 export type AuthParamsList = {
@@ -23,7 +24,14 @@ type AuthStackParamList = {
   RegisterAgency: undefined;
 };
 
-export type ApplicationScreenProps =
-  StackScreenProps<ApplicationStackParamList>;
+export type ApplicationScreenProps = StackScreenProps<
+  ApplicationStackParamList,
+  'Main'
+>;
 
 export type AuthScreenProps = StackScreenProps<AuthStackParamList>;
+
+export type PlaneListScreenProps = {
+  route: RouteProp<ApplicationStackParamList, 'PlaneList'>;
+  navigation: NavigationProp<ApplicationStackParamList, 'PlaneList'>;
+};

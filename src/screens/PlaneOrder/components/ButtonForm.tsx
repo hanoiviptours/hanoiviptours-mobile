@@ -4,23 +4,41 @@ import { Switch } from '@/components';
 
 const iconSize = 30;
 
-export interface ButtonForm {
-  iconLeft: JSX.Element;
-  iconRight: JSX.Element | null;
-  subText: string;
-  text: string;
+export interface IButtonForm {
+  iconLeft?: JSX.Element;
+  iconRight?: JSX.Element | null;
+  subText?: string;
+  text?: string;
   disabled?: boolean;
+  onPress?: () => void;
 }
 
+export interface IPickedValueProps {
+  iconLeft?: JSX.Element;
+  iconRight?: JSX.Element | null;
+  subText?: string | Date;
+  text?: string | Date;
+  disabled?: boolean;
+  startDate?: string;
+  endDate?: string;
+}
+interface PressEventProps {
+  handleDatePicker: (dateMode: 'single' | 'range') => void;
+  handleCustomerPicker: () => void;
+}
 const ButtonForm = ({
   t,
   isEnabled,
   onSwitch,
+  pressEvent,
+  pickedValue,
 }: {
   t?: TFunction;
   isEnabled: boolean;
   onSwitch: React.Dispatch<React.SetStateAction<boolean>>;
-}): ButtonForm[] => [
+  pressEvent: PressEventProps;
+  pickedValue: IPickedValueProps;
+}): IButtonForm[] => [
   {
     iconLeft: (
       <Icon name="airplane-takeoff" type="material-community" size={iconSize} />
@@ -43,7 +61,8 @@ const ButtonForm = ({
     ),
     iconRight: <Switch isEnabled={isEnabled} onSwitch={onSwitch} />,
     subText: 'Ngày đi',
-    text: '15/10/2023',
+    text: pickedValue?.startDate,
+    onPress: () => pressEvent.handleDatePicker('single'),
   },
   {
     iconLeft: (
@@ -52,7 +71,8 @@ const ButtonForm = ({
     disabled: !isEnabled,
     iconRight: null,
     subText: 'Ngày về',
-    text: '15/10/2023',
+    text: pickedValue?.endDate,
+    onPress: () => pressEvent.handleDatePicker('range'),
   },
   {
     iconLeft: (
@@ -61,6 +81,7 @@ const ButtonForm = ({
     iconRight: <Icon name="chevron-right" size={30} />,
     subText: 'Số lượng khách',
     text: '1 người lớn',
+    onPress: () => pressEvent.handleCustomerPicker(),
   },
   {
     iconLeft: (

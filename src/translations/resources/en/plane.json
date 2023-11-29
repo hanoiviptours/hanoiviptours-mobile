@@ -11,5 +11,14 @@
   "reg": "Member card registration",
   "subReg": "Register for a membership card with the airline",
   "return": "Refund and cancellation policy",
-  "subReturn": "View refund and cancellation policies of various airlines"
+  "subReturn": "View refund and cancellation policies of various airlines",
+  "adult": "Adult",
+  "adultAge": "From 12 years old",
+  "children": "Children",
+  "childrenAge": "From 2 to 12 years old",
+  "baby": "Baby",
+  "babyAge": "Under 2 years old",
+  "sort": "Sort",
+  "filter": "Filter",
+  "compact": "Compact"
 }

@@ -9,10 +9,20 @@ const { Colors, FontSize } = DefaultVariables;
 
 type HeaderProps = {
   title: string;
+  rightIcon?: React.ReactNode;
+  handleRightIcon?: () => void;
+  subTitle?: string;
   style?: any;
   borderBottom?: boolean;
 };
-const Header = ({ title, style, borderBottom }: HeaderProps) => {
+const Header = ({
+  title,
+  subTitle,
+  style,
+  borderBottom,
+  rightIcon,
+  handleRightIcon,
+}: HeaderProps) => {
   const navigation = useNavigation();
   const { Layout, Fonts, darkMode: isDark } = useTheme();
   const handleGoBack = () => {
@@ -24,7 +34,7 @@ const Header = ({ title, style, borderBottom }: HeaderProps) => {
         Layout.rowCenter,
         Layout.justifyContentBetween,
         borderBottom && {
-          borderBottomWidth: 2,
+          borderBottomWidth: 0.75,
           borderBottomColor: Colors.textGray200,
         },
         {
@@ -33,7 +43,8 @@ const Header = ({ title, style, borderBottom }: HeaderProps) => {
           backgroundColor: Colors.white,
           ...style,
         },
-      ]} >
+      ]}
+    >
       <TouchableOpacity onPress={handleGoBack}>
         <Icon
           name="chevron-left"
@@ -42,8 +53,24 @@ const Header = ({ title, style, borderBottom }: HeaderProps) => {
           type={'material'}
         />
       </TouchableOpacity>
-      <Text style={[Fonts.textRegular]}>{title}</Text>
-      <View style={{ width: 24 }} />
+
+      <View style={[Layout.col, Layout.center]}>
+        <Text style={[Fonts.textRegular]}>{title}</Text>
+
+        {subTitle ? (
+          <Text style={[Fonts.textTiny, { color: Colors.textGray200 }]}>
+            {subTitle}
+          </Text>
+        ) : null}
+      </View>
+
+      {!subTitle && <View style={{ width: 24 }} />}
+
+      {rightIcon ? (
+        <TouchableOpacity onPress={handleRightIcon}>
+          {rightIcon}
+        </TouchableOpacity>
+      ) : null}
     </View>
   );
 };

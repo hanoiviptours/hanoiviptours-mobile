@@ -1,0 +1,16 @@
+{
+  "save": "Lưu",
+  "selectSingle": "Chọn ngày",
+  "selectMultiple": "Chọn ngày",
+  "selectRange": "Chọn khoảng thời gian",
+  "notAccordingToDateFormat": "Định dạng ngày phải là ${inputFormat}",
+  "mustBeHigherThan": "Phải sau ngày ${date}",
+  "mustBeLowerThan": "Phải trước ngày ${date}",
+  "mustBeBetween": "Phải nằm trong khoảng ${startDate} - ${endDate}",
+  "dateIsDisabled": "Ngày không được phép",
+  "previous": "Trước",
+  "next": "Tiếp",
+  "typeInDate": "Nhập ngày",
+  "pickDateFromCalendar": "Chọn ngày từ lịch",
+  "close": "Đóng"
+}

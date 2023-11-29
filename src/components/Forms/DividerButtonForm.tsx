@@ -11,6 +11,8 @@ type IconTextIconProps = {
   subTextRow?: boolean;
   text: string;
   viewStyle?: ViewStyle;
+  onPress?: () => void;
+  swapHeader?: boolean;
 };
 
 const DividerButtonForm = ({
@@ -18,8 +20,10 @@ const DividerButtonForm = ({
   iconRight,
   subText = '',
   subTextRow = false,
+  swapHeader = false,
   text,
   viewStyle,
+  onPress,
 }: IconTextIconProps) => {
   const { Gutters, Fonts, Layout } = useTheme();
 
@@ -32,6 +36,7 @@ const DividerButtonForm = ({
         { height: height / 13 },
         viewStyle,
       ]}
+      onPress={onPress}
     >
       <View style={[Layout.justifyContentBetween]}>
         <View
@@ -41,12 +46,13 @@ const DividerButtonForm = ({
             {iconLeft}
           </View>
           <View style={[!subTextRow ? Layout.col : Layout.row]}>
+            {swapHeader && <Text style={[Fonts.textSmall]}>{text}</Text>}
             {subText !== '' ? (
               <Text style={{ color: Colors.textGray400, fontSize: 11 }}>
                 {subText}
               </Text>
             ) : null}
-            <Text style={[Fonts.textSmall]}>{text}</Text>
+            {!swapHeader && <Text style={[Fonts.textSmall]}>{text}</Text>}
           </View>
 
           <View style={[Layout.leftAlignAuto, Gutters.smallRMargin]}>

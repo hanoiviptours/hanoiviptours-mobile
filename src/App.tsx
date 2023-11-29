@@ -5,15 +5,18 @@ import { Provider as StoreProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import { persistor, store } from './store';
 import ApplicationNavigator from './navigators/Application';
+import { useTranslation } from 'react-i18next';
 import './translations';
 import Toast from 'react-native-toast-message';
 
+import { registerTranslation } from 'react-native-paper-dates';
 import {
   MD3LightTheme as DefaultTheme,
   PaperProvider,
 } from 'react-native-paper';
 
 const App = () => {
+  const { t } = useTranslation(['datepicker']);
   const myNavigationTheme = {
     ...DefaultTheme,
     colors: {
@@ -23,6 +26,24 @@ const App = () => {
     },
   };
 
+  registerTranslation('custom', {
+    save: t('datepicker:save'),
+    selectSingle: t('datepicker:selectSingle'),
+    selectMultiple: t('datepicker:selectMultiple'),
+    selectRange: t('datepicker:selectRange'),
+    notAccordingToDateFormat: inputFormat =>
+      t('datepicker:notAccordingToDateFormat', { inputFormat }),
+    mustBeHigherThan: date => t('datepicker:mustBeHigherThan', { date }),
+    mustBeLowerThan: date => t('datepicker:mustBeLowerThan', { date }),
+    mustBeBetween: (startDate, endDate) =>
+      t('datepicker:mustBeBetween', { startDate, endDate }),
+    dateIsDisabled: t('datepicker:dateIsDisabled'),
+    previous: t('datepicker:previous'),
+    next: t('datepicker:next'),
+    typeInDate: t('datepicker:typeInDate'),
+    pickDateFromCalendar: t('datepicker:pickDateFromCalendar'),
+    close: t('datepicker:close'),
+  });
   return (
     <StoreProvider store={store}>
       {/**
