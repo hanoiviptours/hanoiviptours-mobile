@@ -20,5 +20,11 @@
   "babyAge": "Under 2 years old",
   "sort": "Sort",
   "filter": "Filter",
-  "compact": "Compact"
+  "compact": "Compact",
+  "ticketClass": "Choose ticket class",
+  "seatLeft": "Seats left {{seatsLeft}}",
+  "handLuggage": "Carry-on luggage",
+  "changeTicket": "Change ticket",
+  "refundTicket": "Refund ticket",
+  "changingFlights": "Changing flights"
 }

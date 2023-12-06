@@ -41,9 +41,9 @@ export const mockFlight = [
       },
     ],
     price: {
-      currency: 'EUR',
-      total: '59.59',
-      base: '51.00',
+      currency: 'VND',
+      total: '1571000.00',
+      base: '1344000.00',
       fees: [
         {
           amount: '0.00',
@@ -54,7 +54,7 @@ export const mockFlight = [
           type: 'TICKETING',
         },
       ],
-      grandTotal: '59.59',
+      grandTotal: '1571000.00',
     },
     pricingOptions: {
       fareType: ['PUBLISHED'],
@@ -67,9 +67,9 @@ export const mockFlight = [
         fareOption: 'STANDARD',
         travelerType: 'ADULT',
         price: {
-          currency: 'EUR',
-          total: '59.59',
-          base: '51.00',
+          currency: 'VND',
+          total: '1571000.00',
+          base: '1344000.00',
         },
         fareDetailsBySegment: [
           {
@@ -128,9 +128,9 @@ export const mockFlight = [
       },
     ],
     price: {
-      currency: 'EUR',
-      total: '59.59',
-      base: '51.00',
+      currency: 'VND',
+      total: '1571000.00',
+      base: '1344000.00',
       fees: [
         {
           amount: '0.00',
@@ -141,7 +141,7 @@ export const mockFlight = [
           type: 'TICKETING',
         },
       ],
-      grandTotal: '59.59',
+      grandTotal: '1571000.00',
     },
     pricingOptions: {
       fareType: ['PUBLISHED'],
@@ -154,9 +154,9 @@ export const mockFlight = [
         fareOption: 'STANDARD',
         travelerType: 'ADULT',
         price: {
-          currency: 'EUR',
-          total: '59.59',
-          base: '51.00',
+          currency: 'VND',
+          total: '1571000.00',
+          base: '1344000.00',
         },
         fareDetailsBySegment: [
           {
@@ -215,9 +215,9 @@ export const mockFlight = [
       },
     ],
     price: {
-      currency: 'EUR',
-      total: '59.59',
-      base: '51.00',
+      currency: 'VND',
+      total: '1571000.00',
+      base: '1344000.00',
       fees: [
         {
           amount: '0.00',
@@ -228,7 +228,7 @@ export const mockFlight = [
           type: 'TICKETING',
         },
       ],
-      grandTotal: '59.59',
+      grandTotal: '1571000.00',
     },
     pricingOptions: {
       fareType: ['PUBLISHED'],
@@ -241,9 +241,9 @@ export const mockFlight = [
         fareOption: 'STANDARD',
         travelerType: 'ADULT',
         price: {
-          currency: 'EUR',
-          total: '59.59',
-          base: '51.00',
+          currency: 'VND',
+          total: '1571000.00',
+          base: '1344000.00',
         },
         fareDetailsBySegment: [
           {
@@ -302,9 +302,9 @@ export const mockFlight = [
       },
     ],
     price: {
-      currency: 'EUR',
-      total: '59.59',
-      base: '51.00',
+      currency: 'VND',
+      total: '1571000.00',
+      base: '1344000.00',
       fees: [
         {
           amount: '0.00',
@@ -315,7 +315,7 @@ export const mockFlight = [
           type: 'TICKETING',
         },
       ],
-      grandTotal: '59.59',
+      grandTotal: '1571000.00',
     },
     pricingOptions: {
       fareType: ['PUBLISHED'],
@@ -328,9 +328,9 @@ export const mockFlight = [
         fareOption: 'STANDARD',
         travelerType: 'ADULT',
         price: {
-          currency: 'EUR',
-          total: '59.59',
-          base: '51.00',
+          currency: 'VND',
+          total: '1571000.00',
+          base: '1344000.00',
         },
         fareDetailsBySegment: [
           {
@@ -389,9 +389,9 @@ export const mockFlight = [
       },
     ],
     price: {
-      currency: 'EUR',
-      total: '59.59',
-      base: '51.00',
+      currency: 'VND',
+      total: '1571000.00',
+      base: '1344000.00',
       fees: [
         {
           amount: '0.00',
@@ -402,7 +402,7 @@ export const mockFlight = [
           type: 'TICKETING',
         },
       ],
-      grandTotal: '59.59',
+      grandTotal: '1571000.00',
     },
     pricingOptions: {
       fareType: ['PUBLISHED'],
@@ -415,9 +415,9 @@ export const mockFlight = [
         fareOption: 'STANDARD',
         travelerType: 'ADULT',
         price: {
-          currency: 'EUR',
-          total: '59.59',
-          base: '51.00',
+          currency: 'VND',
+          total: '1571000.00',
+          base: '1344000.00',
         },
         fareDetailsBySegment: [
           {
@@ -476,9 +476,9 @@ export const mockFlight = [
       },
     ],
     price: {
-      currency: 'EUR',
-      total: '59.59',
-      base: '51.00',
+      currency: 'VND',
+      total: '1571000.00',
+      base: '1344000.00',
       fees: [
         {
           amount: '0.00',
@@ -489,7 +489,7 @@ export const mockFlight = [
           type: 'TICKETING',
         },
       ],
-      grandTotal: '59.59',
+      grandTotal: '1571000.00',
     },
     pricingOptions: {
       fareType: ['PUBLISHED'],
@@ -502,13 +502,361 @@ export const mockFlight = [
         fareOption: 'STANDARD',
         travelerType: 'ADULT',
         price: {
-          currency: 'EUR',
-          total: '59.59',
-          base: '51.00',
+          currency: 'VND',
+          total: '1571000.00',
+          base: '1344000.00',
         },
         fareDetailsBySegment: [
           {
             segmentId: '75',
+            cabin: 'ECONOMY',
+            fareBasis: 'ESP',
+            class: 'E',
+            includedCheckedBags: {
+              weight: 20,
+              weightUnit: 'KG',
+            },
+          },
+        ],
+      },
+    ],
+  },
+  {
+    type: 'flight-offer',
+    id: '7',
+    source: 'GDS',
+    instantTicketingRequired: false,
+    nonHomogeneous: false,
+    oneWay: false,
+    lastTicketingDate: '2023-12-15',
+    lastTicketingDateTime: '2023-12-15',
+    numberOfBookableSeats: 9,
+    itineraries: [
+      {
+        duration: 'PT2H10M',
+        segments: [
+          {
+            departure: {
+              iataCode: 'HAN',
+              terminal: '1',
+              at: '2023-12-15T15:30:00',
+            },
+            arrival: {
+              iataCode: 'SGN',
+              terminal: '1',
+              at: '2023-12-15T17:40:00',
+            },
+            carrierCode: 'VJ',
+            number: '143',
+            aircraft: {
+              code: '330',
+            },
+            operating: {
+              carrierCode: 'VJ',
+            },
+            duration: 'PT2H10M',
+            id: '78',
+            numberOfStops: 0,
+            blacklistedInEU: false,
+          },
+        ],
+      },
+    ],
+    price: {
+      currency: 'VND',
+      total: '1571000.00',
+      base: '1344000.00',
+      fees: [
+        {
+          amount: '0.00',
+          type: 'SUPPLIER',
+        },
+        {
+          amount: '0.00',
+          type: 'TICKETING',
+        },
+      ],
+      grandTotal: '1571000.00',
+    },
+    pricingOptions: {
+      fareType: ['PUBLISHED'],
+      includedCheckedBagsOnly: true,
+    },
+    validatingAirlineCodes: ['HR'],
+    travelerPricings: [
+      {
+        travelerId: '1',
+        fareOption: 'STANDARD',
+        travelerType: 'ADULT',
+        price: {
+          currency: 'VND',
+          total: '1571000.00',
+          base: '1344000.00',
+        },
+        fareDetailsBySegment: [
+          {
+            segmentId: '78',
+            cabin: 'ECONOMY',
+            fareBasis: 'ESP',
+            class: 'E',
+            includedCheckedBags: {
+              weight: 20,
+              weightUnit: 'KG',
+            },
+          },
+        ],
+      },
+    ],
+  },
+  {
+    type: 'flight-offer',
+    id: '8',
+    source: 'GDS',
+    instantTicketingRequired: false,
+    nonHomogeneous: false,
+    oneWay: false,
+    lastTicketingDate: '2023-12-15',
+    lastTicketingDateTime: '2023-12-15',
+    numberOfBookableSeats: 9,
+    itineraries: [
+      {
+        duration: 'PT2H10M',
+        segments: [
+          {
+            departure: {
+              iataCode: 'HAN',
+              terminal: '1',
+              at: '2023-12-15T16:30:00',
+            },
+            arrival: {
+              iataCode: 'SGN',
+              terminal: '1',
+              at: '2023-12-15T18:40:00',
+            },
+            carrierCode: 'VJ',
+            number: '147',
+            aircraft: {
+              code: '330',
+            },
+            operating: {
+              carrierCode: 'VJ',
+            },
+            duration: 'PT2H10M',
+            id: '81',
+            numberOfStops: 0,
+            blacklistedInEU: false,
+          },
+        ],
+      },
+    ],
+    price: {
+      currency: 'VND',
+      total: '1571000.00',
+      base: '1344000.00',
+      fees: [
+        {
+          amount: '0.00',
+          type: 'SUPPLIER',
+        },
+        {
+          amount: '0.00',
+          type: 'TICKETING',
+        },
+      ],
+      grandTotal: '1571000.00',
+    },
+    pricingOptions: {
+      fareType: ['PUBLISHED'],
+      includedCheckedBagsOnly: true,
+    },
+    validatingAirlineCodes: ['HR'],
+    travelerPricings: [
+      {
+        travelerId: '1',
+        fareOption: 'STANDARD',
+        travelerType: 'ADULT',
+        price: {
+          currency: 'VND',
+          total: '1571000.00',
+          base: '1344000.00',
+        },
+        fareDetailsBySegment: [
+          {
+            segmentId: '81',
+            cabin: 'ECONOMY',
+            fareBasis: 'ESP',
+            class: 'E',
+            includedCheckedBags: {
+              weight: 20,
+              weightUnit: 'KG',
+            },
+          },
+        ],
+      },
+    ],
+  },
+  {
+    type: 'flight-offer',
+    id: '9',
+    source: 'GDS',
+    instantTicketingRequired: false,
+    nonHomogeneous: false,
+    oneWay: false,
+    lastTicketingDate: '2023-12-15',
+    lastTicketingDateTime: '2023-12-15',
+    numberOfBookableSeats: 9,
+    itineraries: [
+      {
+        duration: 'PT2H10M',
+        segments: [
+          {
+            departure: {
+              iataCode: 'HAN',
+              terminal: '1',
+              at: '2023-12-15T18:00:00',
+            },
+            arrival: {
+              iataCode: 'SGN',
+              terminal: '1',
+              at: '2023-12-15T20:10:00',
+            },
+            carrierCode: 'VJ',
+            number: '151',
+            aircraft: {
+              code: '321',
+            },
+            operating: {
+              carrierCode: 'VJ',
+            },
+            duration: 'PT2H10M',
+            id: '85',
+            numberOfStops: 0,
+            blacklistedInEU: false,
+          },
+        ],
+      },
+    ],
+    price: {
+      currency: 'VND',
+      total: '1571000.00',
+      base: '1344000.00',
+      fees: [
+        {
+          amount: '0.00',
+          type: 'SUPPLIER',
+        },
+        {
+          amount: '0.00',
+          type: 'TICKETING',
+        },
+      ],
+      grandTotal: '1571000.00',
+    },
+    pricingOptions: {
+      fareType: ['PUBLISHED'],
+      includedCheckedBagsOnly: true,
+    },
+    validatingAirlineCodes: ['HR'],
+    travelerPricings: [
+      {
+        travelerId: '1',
+        fareOption: 'STANDARD',
+        travelerType: 'ADULT',
+        price: {
+          currency: 'VND',
+          total: '1571000.00',
+          base: '1344000.00',
+        },
+        fareDetailsBySegment: [
+          {
+            segmentId: '85',
+            cabin: 'ECONOMY',
+            fareBasis: 'ESP',
+            class: 'E',
+            includedCheckedBags: {
+              weight: 20,
+              weightUnit: 'KG',
+            },
+          },
+        ],
+      },
+    ],
+  },
+  {
+    type: 'flight-offer',
+    id: '10',
+    source: 'GDS',
+    instantTicketingRequired: false,
+    nonHomogeneous: false,
+    oneWay: false,
+    lastTicketingDate: '2023-12-15',
+    lastTicketingDateTime: '2023-12-15',
+    numberOfBookableSeats: 9,
+    itineraries: [
+      {
+        duration: 'PT2H10M',
+        segments: [
+          {
+            departure: {
+              iataCode: 'HAN',
+              terminal: '1',
+              at: '2023-12-15T18:40:00',
+            },
+            arrival: {
+              iataCode: 'SGN',
+              terminal: '1',
+              at: '2023-12-15T20:50:00',
+            },
+            carrierCode: 'VJ',
+            number: '153',
+            aircraft: {
+              code: '330',
+            },
+            operating: {
+              carrierCode: 'VJ',
+            },
+            duration: 'PT2H10M',
+            id: '88',
+            numberOfStops: 0,
+            blacklistedInEU: false,
+          },
+        ],
+      },
+    ],
+    price: {
+      currency: 'VND',
+      total: '1571000.00',
+      base: '1344000.00',
+      fees: [
+        {
+          amount: '0.00',
+          type: 'SUPPLIER',
+        },
+        {
+          amount: '0.00',
+          type: 'TICKETING',
+        },
+      ],
+      grandTotal: '1571000.00',
+    },
+    pricingOptions: {
+      fareType: ['PUBLISHED'],
+      includedCheckedBagsOnly: true,
+    },
+    validatingAirlineCodes: ['HR'],
+    travelerPricings: [
+      {
+        travelerId: '1',
+        fareOption: 'STANDARD',
+        travelerType: 'ADULT',
+        price: {
+          currency: 'VND',
+          total: '1571000.00',
+          base: '1344000.00',
+        },
+        fareDetailsBySegment: [
+          {
+            segmentId: '88',
             cabin: 'ECONOMY',
             fareBasis: 'ESP',
             class: 'E',

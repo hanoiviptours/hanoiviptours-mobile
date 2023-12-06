@@ -1,9 +1,8 @@
 import React from 'react';
-import { View, Platform, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { useTheme } from '@/hooks';
 import { Colors } from '@/theme/Variables';
-import { VjIcon, VnaIcon } from '@/theme/assets/icons';
-import { formatMoney } from '@/utils';
+import { VjIcon, VnaIcon, QhIcon } from '@/theme/assets/icons';
 
 interface IFlightTimeRenderProps {
   takeOffTime?: string;
@@ -14,11 +13,6 @@ interface IFlightTimeRenderProps {
   endDestination?: string;
   time?: string;
   flightType?: string;
-}
-
-interface IFlightBrandProps {
-  brand?: string;
-  planeName?: string;
 }
 
 export const FlightTime: React.FC<IFlightTimeRenderProps> = ({ time }) => {
@@ -48,23 +42,15 @@ export const FlightTimeRender: React.FC<IFlightTimeRenderProps> = ({
           Gutters.tinyRMargin,
           {
             width: '23%',
-            borderBottomColor: Colors.textGray150,
-            borderBottomWidth: 2,
+            borderBottomColor: Colors.textGray200,
+            borderBottomWidth: 1,
             paddingBottom: 3,
           },
         ]}
       >
         <Text style={[Fonts.textTiny]}>{duration}</Text>
       </View>
-      <FlightTime
-        time={landingTime}
-        takeOffTime={''}
-        landingTime={''}
-        duration={''}
-        note={''}
-        startDestination={''}
-        endDestination={''}
-      />
+      <FlightTime time={landingTime} />
       <Text style={[Gutters.tinyTMargin, Fonts.textTiny, { marginLeft: 5 }]}>
         {note}
       </Text>
@@ -99,23 +85,43 @@ export const FlightDestinationRender: React.FC<IFlightTimeRenderProps> = ({
   );
 };
 
+export interface IFlightBrandProps {
+  brand?: string;
+  planeName?: string;
+  icon: React.ReactNode;
+  fontSize?: 'tiny' | 'small';
+}
+
 export const FlightBrandRender: React.FC<IFlightBrandProps> = ({
   brand,
   planeName,
+  icon,
+  fontSize = 'tiny',
 }) => {
   const { Fonts, Layout } = useTheme();
+  const textStyle = fontSize === 'tiny' ? Fonts.textTiny : Fonts.textSmall;
+
   return (
     <>
       <View style={[Layout.row, Layout.alignItemsCenter, { paddingLeft: 3 }]}>
-        <VnaIcon width={30} height={30} />
-        <Text style={[Fonts.textTiny, { paddingLeft: 5, paddingTop: 5 }]}>
+        {icon}
+        <Text style={[textStyle, { paddingLeft: 5, paddingTop: 5 }]}>
           {brand}
         </Text>
       </View>
 
-      <Text style={[Fonts.textTiny, Layout.alignItemsStart, { paddingTop: 5 }]}>
-        {planeName}
-      </Text>
+      {planeName && (
+        <Text
+          style={[
+            textStyle,
+            Layout.alignItemsStart,
+            Fonts.textCapitalize,
+            { paddingTop: 5 },
+          ]}
+        >
+          {planeName}
+        </Text>
+      )}
     </>
   );
 };
@@ -123,7 +129,7 @@ export const FlightBrandRender: React.FC<IFlightBrandProps> = ({
 export const FlightPriceRender: React.FC<
   IFlightTimeRenderProps & {
     flightNumber: string;
-    price: number;
+    price?: string;
   }
 > = ({ flightNumber, price }) => {
   const { Fonts, Layout } = useTheme();
@@ -132,9 +138,26 @@ export const FlightPriceRender: React.FC<
       <Text style={[Fonts.textTiny, { marginLeft: 'auto' }]}>
         {flightNumber}
       </Text>
-      <Text style={[Fonts.textSmall, Fonts.textBold, { color: Colors.orange }]}>
-        {formatMoney(price || 0, 'VND')}
-      </Text>
+      {price && (
+        <Text
+          style={[Fonts.textSmall, Fonts.textBold, { color: Colors.orange }]}
+        >
+          {price}
+        </Text>
+      )}
     </View>
   );
+};
+
+export const RenderIcon = (brand?: string, size?: number) => {
+  switch (brand) {
+    case 'VJ':
+      return <VjIcon width={size} height={size} />;
+    case 'VN':
+      return <VnaIcon width={size} height={size} />;
+    case 'QH':
+      return <QhIcon width={size} height={size} />;
+    default:
+      return null;
+  }
 };

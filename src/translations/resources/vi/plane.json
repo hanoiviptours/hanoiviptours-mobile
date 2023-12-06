@@ -20,5 +20,11 @@
   "babyAge": "Dưới 2 tuổi",
   "sort": "Sắp xếp",
   "filter": "Bộ Lọc",
-  "compact": "Rút gọn"
+  "compact": "Rút gọn",
+  "ticketClass": "Chọn hạng vé",
+  "seatLeft": "Còn {{seatsLeft}} chỗ",
+  "handLuggage": "Hành lý xách tay 1 x 12kg. Hành lý ký gửi 1 x 23kg",
+  "changeTicket": "Hỗ trợ đổi vé trước ngày khởi hành. Phí đổi: 500.000 VND + chênh lệch giá vé (nêu có)",
+  "refundTicket": "Hỗ trợ hoàn vé trước giờ khởi hành. Phí hoàn: 500.000 VND",
+  "changingFlights": "Hỗ trợ đổi chuyến tại sân bay (mất phí)"
 }

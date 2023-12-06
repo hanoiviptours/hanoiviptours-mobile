@@ -27,10 +27,11 @@ export const Colors = {
   textGray300: '#727272',
   textGray200: '#A1A1A1',
   textGray150: '#e2e2e2',
-  textGray100: '#f5f5f5',
+  textGray100: '#f4f5f5',
   primary: '#E14032',
   success: '#28a745',
   error: '#dc3545',
+  warning: '#004ebc',
   //ComponentColors
   circleButtonBackground: '#E1E1EF',
   circleButtonColor: '#44427D',

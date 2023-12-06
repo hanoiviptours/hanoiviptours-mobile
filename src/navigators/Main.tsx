@@ -1,5 +1,5 @@
 import React from 'react';
-import { Topup, PlaneList, PlaneOrder } from '../screens';
+import { Topup, PlaneList, PlaneOrder, PlaneDetail } from '../screens';
 import { Icon } from '@rneui/themed';
 import { Platform } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -60,6 +60,18 @@ const mainNavigatorOptions = (t: TFunction) => [
     ),
     name: 'PlaneList',
     component: PlaneList,
+  },
+  {
+    headerShown: true,
+    header: () => (
+      <Header
+        borderBottom
+        style={{ paddingTop: paddingTop }}
+        title={t('header:planeDetails')}
+      />
+    ),
+    name: 'PlaneDetail',
+    component: PlaneDetail,
   },
 ];
 

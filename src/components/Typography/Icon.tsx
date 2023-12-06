@@ -10,15 +10,16 @@ type Props = {
   type?: string;
   color?: string;
   setState?: (state: any) => void;
+  style?: any;
 };
-const Icon = ({ name, size, color, type, setState }: Props) => {
+const Icon = ({ name, size, color, type, setState, style }: Props) => {
   const { Gutters, darkMode: isDark } = useTheme();
 
   return (
     <>
       <LibIcon
         color={color}
-        containerStyle={{}}
+        containerStyle={style}
         disabledStyle={{}}
         iconStyle={Gutters.tinyLPadding}
         name={name ? name : ''}

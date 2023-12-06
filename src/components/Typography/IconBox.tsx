@@ -27,7 +27,7 @@ type renderFunctionProps = {
   textStyles: any;
   icon: IconProps;
   text: string;
-  onPress: () => void;
+  onPress?: () => void;
 };
 
 const IconBox = ({
@@ -39,11 +39,11 @@ const IconBox = ({
 }: renderFunctionProps) => {
   return (
     <TouchableOpacity
-      style={{ ...styles, alignItems: 'center' }}
+      style={[styles, { alignItems: 'center' }]}
       onPress={onPress}
     >
       <RenderIcon {...icon} />
-      <Text style={{ ...textStyles }}>{text}</Text>
+      <Text style={[textStyles]}>{text}</Text>
     </TouchableOpacity>
   );
 };

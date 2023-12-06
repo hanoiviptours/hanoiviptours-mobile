@@ -10,3 +10,4 @@ export { default as Reverse } from './reverse.svg';
 export { default as GroupCustomer } from './group-customer.svg';
 export { default as VnaIcon } from './vna.svg';
 export { default as VjIcon } from './vj.svg';
+export { default as QhIcon } from './qh.svg';

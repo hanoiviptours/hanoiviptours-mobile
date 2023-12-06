@@ -1,5 +1,5 @@
-import React, { useState, useRef, useCallback, Fragment } from 'react';
-import { View, Platform, Text } from 'react-native';
+import React, { useCallback } from 'react';
+import { View, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/hooks';
@@ -10,59 +10,99 @@ import {
   FlightDestinationRender,
   FlightBrandRender,
   FlightPriceRender,
+  RenderIcon,
 } from '../components/PlaneListItemElements';
+import { getAirlineInfos } from '../ulities';
+import { setFlightInfo } from '@/store/flight';
 
 type IPlaneListItemProps = {
-  flightInfos: [];
+  flightInfos: any;
+  navigation: any;
 };
 
-const PlaneListItem = React.memo(({ flightInfos }: IPlaneListItemProps) => {
+const PlaneListItem = ({ flightInfos, navigation }: IPlaneListItemProps) => {
   const dispatch = useDispatch();
   const { t } = useTranslation(['plane']);
-  const { Gutters, Layout, Fonts } = useTheme();
+  const { Gutters, Layout } = useTheme();
+  const flightSegments = flightInfos.itineraries[0].segments[0];
+  const flightPrice = flightInfos.price;
+
+  const airlineInfos = getAirlineInfos(
+    flightSegments.carrierCode,
+    flightSegments.aircraft.code,
+    flightInfos.itineraries[0].duration,
+    flightSegments.departure,
+    flightSegments.arrival,
+    flightSegments.number,
+    flightPrice.grandTotal,
+    flightPrice.currency,
+    flightInfos.lastTicketingDateTime,
+  );
+  const {
+    name,
+    icon,
+    aircraftName,
+    durationTime,
+    takeOffTime,
+    landingTime,
+    airportLocation,
+    landingAirportLocation,
+    flightCodeNumber,
+    flightTotalPrice,
+  } = airlineInfos;
+
+  const navigationToDetail = useCallback(() => {
+    dispatch(setFlightInfo(airlineInfos));
+    navigation.navigate('PlaneDetail');
+  }, [airlineInfos]);
 
   return (
-    <ShadowBox
-      style={[
-        Layout.fill,
-        Layout.row,
-        Layout.justifyContentBetween,
-        Gutters.smallLMargin,
-        Gutters.smallRMargin,
-        Gutters.smallTPadding,
-        Gutters.tinyBMargin,
-        Gutters.tinyTMargin,
-        Gutters.tinyLPadding,
-        {
-          backgroundColor: Colors.white,
-          borderRadius: 10,
-          height: 'auto',
-          maxHeight: 140,
-        },
-      ]}
-    >
-      <View style={[Layout.col, Layout.justifyContentCenter]}>
-        <FlightBrandRender
-          brand="Vietnam Airlines "
-          planeName="Airbus A321 (sharklets)"
-        />
-        <FlightTimeRender
-          takeOffTime={'22:00'}
-          landingTime="23:00"
-          duration="2h 0m"
-          note="+1d"
-        />
+    <TouchableOpacity onPress={navigationToDetail}>
+      <ShadowBox
+        style={[
+          Layout.fill,
+          Layout.row,
+          Layout.justifyContentBetween,
+          Gutters.tinyLMargin,
+          Gutters.tinyRMargin,
+          Gutters.smallTPadding,
+          Gutters.tinyBMargin,
+          Gutters.tinyTMargin,
+          Gutters.tinyLPadding,
+          {
+            backgroundColor: Colors.white,
+            borderRadius: 10,
+            height: 'auto',
+            maxHeight: 145,
+          },
+        ]}
+      >
+        <View style={[Layout.col, Layout.justifyContentCenter]}>
+          <FlightBrandRender
+            brand={name}
+            icon={RenderIcon(icon, 30)}
+            planeName={aircraftName}
+          />
+          <FlightTimeRender
+            takeOffTime={takeOffTime}
+            landingTime={landingTime}
+            duration={durationTime}
+            note="+1d"
+          />
 
-        <FlightDestinationRender
-          startDestination="HAN"
-          endDestination="SGN"
-          flightType="Bay thẳng"
+          <FlightDestinationRender
+            startDestination={airportLocation}
+            endDestination={landingAirportLocation}
+            flightType="Bay thẳng"
+          />
+        </View>
+        <FlightPriceRender
+          flightNumber={flightCodeNumber || ''}
+          price={flightTotalPrice}
         />
-      </View>
-      <FlightPriceRender flightNumber="VN 983" price={3000000} />
-    </ShadowBox>
+      </ShadowBox>
+    </TouchableOpacity>
   );
-});
+};
 
 export default PlaneListItem;
-

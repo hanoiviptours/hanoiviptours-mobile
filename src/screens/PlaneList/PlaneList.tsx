@@ -1,37 +1,28 @@
-import React, { useState, useMemo, useRef, useCallback } from 'react';
-import { View, Platform } from 'react-native';
+import React, { useState, useCallback, memo } from 'react';
+import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import {
-  ButtonGroup,
-  DividerButtonForm,
-  Button,
-  RangeDatePicker,
-} from '@/components';
 import { useTheme } from '@/hooks';
 import { Colors } from '@/theme/Variables';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import moment from 'moment';
 import { PlaneListScreenProps } from '../../../@types/navigation';
 import PlaneListHeader from './components/PlaneListHeader';
 import PlaneListItem from './components/PlaneListItem';
 import { FlatList } from 'react-native-gesture-handler';
+import { mockFlight } from '@/services/mockres';
 
-const currentDate = moment().toDate();
-// const absoluteIcon = Platform.OS === 'ios' ? '-35%' : '-20%';
+const MemorizedItem = memo(PlaneListItem);
 
 const PlaneList = ({ navigation }: PlaneListScreenProps) => {
   const dispatch = useDispatch();
-  const { t } = useTranslation(['plane']);
-  const { Gutters, Layout, darkMode: isDark } = useTheme();
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const { Gutters, Layout } = useTheme();
 
   const [flightInfo, setFlightInfo] = useState([]);
+
   const renderItem = useCallback(
-    ({ item }) => <PlaneListItem flightInfos={item} />,
-    []
+    ({ item }: any) => (
+      <MemorizedItem flightInfos={item} navigation={navigation} />
+    ),
+    [],
   );
-  const item = [1, 2, 3, 4, 5, 6, 7];
 
   return (
     <View
@@ -39,11 +30,12 @@ const PlaneList = ({ navigation }: PlaneListScreenProps) => {
         Layout.fill,
         Layout.fullWidth,
         Layout.fullHeight,
+        Gutters.smallBPadding,
         { backgroundColor: Colors.white },
       ]}
     >
       <PlaneListHeader />
-      <FlatList data={item} renderItem={renderItem} />
+      <FlatList data={mockFlight} renderItem={renderItem} />
     </View>
   );
 };

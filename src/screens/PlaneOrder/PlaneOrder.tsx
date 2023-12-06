@@ -42,7 +42,6 @@ const PlaneOrder = ({ navigation }: any) => {
 
   const onConfirm = useCallback(
     ({ startDate, endDate }: Date | any) => {
-      console.log('onConfirm', startDate, endDate);
       setOpenDatePicker(false);
       setRange({ startDate, endDate });
     },
@@ -80,9 +79,9 @@ const PlaneOrder = ({ navigation }: any) => {
   });
   const renderExtraUtils = RenderExtraUtils(t);
 
-  const handlePress = (value: number) => {
+  const handlePress = useCallback((value: number) => {
     setSelectedIndex(value);
-  };
+  }, [])
   return (
     <>
       <ScrollView

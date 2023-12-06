@@ -35,6 +35,9 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
     textUppercase: {
       textTransform: 'uppercase',
     },
+    textCapitalize: {
+      textTransform: 'capitalize',
+    },
     titleSmall: {
       fontSize: FontSize.small * 1.2,
       fontWeight: 'bold',
@@ -69,7 +72,7 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
       color: Colors.success,
     },
     textPrimary: {
-      color: Colors.primary,
+      color: Colors.primaryColor,
     },
     textLight: {
       color: Colors.textGray200,
