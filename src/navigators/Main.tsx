@@ -1,19 +1,30 @@
-import React from 'react';
-import { Topup, PlaneList, PlaneOrder, PlaneDetail } from '../screens';
+import React, { useCallback } from 'react';
+import {
+  Topup,
+  PlaneList,
+  PlaneOrder,
+  PlaneDetail,
+  PlaneCheckout,
+} from '../screens';
 import { Icon } from '@rneui/themed';
 import { Platform } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
 import BottomTab from './BottomTabNavigator';
 import Header from './Header';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { Colors } from '@/theme/Variables';
+import { setSteps } from '@/store/checkoutsteps';
 
 const Stack = createStackNavigator();
 
 const paddingTop = Platform.OS === 'ios' ? '15%' : 0;
 
-const mainNavigatorOptions = (t: TFunction) => [
+const mainNavigatorOptions = (
+  t: TFunction,
+  handleCheckoutStepsGoBack?: () => void,
+) => [
   {
     headerShown: false,
     name: 'Dashboard',
@@ -65,7 +76,6 @@ const mainNavigatorOptions = (t: TFunction) => [
     headerShown: true,
     header: () => (
       <Header
-        borderBottom
         style={{ paddingTop: paddingTop }}
         title={t('header:planeDetails')}
       />
@@ -73,11 +83,32 @@ const mainNavigatorOptions = (t: TFunction) => [
     name: 'PlaneDetail',
     component: PlaneDetail,
   },
+  {
+    headerShown: true,
+    header: () => (
+      <Header
+        style={{ paddingTop: paddingTop }}
+        title={t('header:planeCheckout')}
+        onPress={handleCheckoutStepsGoBack}
+      />
+    ),
+    name: 'PlaneCheckout',
+    component: PlaneCheckout,
+  },
 ];
 
 const MainNavigator = () => {
   const { t } = useTranslation(['header']);
-  const navigators = mainNavigatorOptions(t);
+  const currentCheckoutSteps = useSelector((state: any) => state.steps);
+  const dispatch = useDispatch();
+
+  const handleCheckoutStepsGoBack = useCallback(() => {
+    if (currentCheckoutSteps.steps > 0) {
+      dispatch(setSteps({ steps: currentCheckoutSteps.steps - 1 }));
+    }
+  }, [currentCheckoutSteps]);
+
+  const navigators = mainNavigatorOptions(t, handleCheckoutStepsGoBack);
   return (
     <Stack.Navigator screenOptions={{ headerShown: true }}>
       {navigators.map((item, index) => (

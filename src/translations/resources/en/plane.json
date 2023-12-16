@@ -2,6 +2,8 @@
   "buttontype": "One way/Round trip",
   "buttoncity": "Multiple cities",
   "confirm": "Search",
+  "continue": "Continue",
+  "apply": "Apply",
   "command": "Special price request",
   "subCommand": "Students - Workers - Group tickets",
   "ticket": "Hunt for tickets",
@@ -26,5 +28,15 @@
   "handLuggage": "Carry-on luggage",
   "changeTicket": "Change ticket",
   "refundTicket": "Refund ticket",
-  "changingFlights": "Changing flights"
+  "changingFlights": "Changing flights",
+  "step1": "Passengers",
+  "step2": "Services",
+  "step3": "Payment",
+  "step4": "Booking completed",
+  "userInputTooltip": "Please enter unaccented Vietnamese when providing information. Enter your full name as it appkears on your personal documents",
+  "gender": "Gender",
+  "male": "Male",
+  "female": "Female",
+  "firstName": "First name",
+  "done": "Done"
 }

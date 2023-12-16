@@ -1,15 +1,5 @@
 export const headerButtons = () => [
   {
-    title: 'user',
-    icon: '',
-    route: 'info',
-  },
-  {
-    title: 'id',
-    icon: '',
-    route: 'info',
-  },
-  {
     title: 'chat',
     icon: 'chat',
     route: 'Notification',

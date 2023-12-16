@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from '@rneui/themed';
+import { useSelector } from 'react-redux';
 
 import { useTheme } from '../hooks';
 import { useNavigation } from '@react-navigation/native';
@@ -13,6 +14,7 @@ type HeaderProps = {
   handleRightIcon?: () => void;
   subTitle?: string;
   style?: any;
+  onPress?: () => void;
   borderBottom?: boolean;
 };
 const Header = ({
@@ -21,13 +23,21 @@ const Header = ({
   style,
   borderBottom,
   rightIcon,
+  onPress,
   handleRightIcon,
 }: HeaderProps) => {
   const navigation = useNavigation();
   const { Layout, Fonts, darkMode: isDark } = useTheme();
-  const handleGoBack = () => {
-    navigation.goBack();
-  };
+  const currentCheckoutSteps = useSelector((state: any) => state.steps);
+
+  const handleGoBack = useCallback(() => {
+    if (onPress && currentCheckoutSteps.steps > 0) {
+      onPress();
+    } else {
+      navigation.goBack();
+    }
+  }, [navigation, onPress, currentCheckoutSteps.steps]);
+
   return (
     <View
       style={[

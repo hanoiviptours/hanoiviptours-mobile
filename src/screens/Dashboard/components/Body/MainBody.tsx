@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { View, Text, useWindowDimensions } from 'react-native';
+import { View, Text } from 'react-native';
 import { useTheme } from '@/hooks';
 import { useTranslation } from 'react-i18next';
 import { Plane, Hotel, Ticket } from '@/theme/assets/icons';
@@ -10,9 +10,8 @@ type BoxWalletProps = {
   navigation: any;
 };
 const iconStyle = 90;
-const MainBody = ({ style, navigation }: BoxWalletProps) => {
+const MainBody = ({ navigation }: BoxWalletProps) => {
   const { Fonts, Layout, darkMode: isDark } = useTheme();
-  // const { width, height } = useWindowDimensions();
   const { t } = useTranslation(['dashboard']);
 
   const listIcon = [

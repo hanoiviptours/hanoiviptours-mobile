@@ -1,5 +1,6 @@
 import React, { CSSProperties, useEffect } from 'react';
 import { useTheme } from '../../hooks';
+import { Text, View } from 'react-native';
 import { changeTheme, ThemeState } from '../../store/theme';
 import { IconNode, Input, InputProps } from '@rneui/base';
 import Icon from '../Typography/Icon';
@@ -19,6 +20,7 @@ type Props = {
   description?: string;
   timers?: boolean;
   inputStyle?: any;
+  label?: string;
 };
 
 const InputForm = ({
@@ -30,8 +32,9 @@ const InputForm = ({
   description,
   timers,
   inputStyle,
+  label,
 }: Props) => {
-  const { Fonts, darkMode: isDark } = useTheme();
+  const { Gutters, Fonts, darkMode: isDark, Layout } = useTheme();
 
   useEffect(() => {}, [timers]);
   const renderCountdown = () => {
@@ -52,7 +55,14 @@ const InputForm = ({
     ) : null;
   };
   return (
-    <>
+    <View style={[Layout.fullWidth, Layout.center]}>
+      {label && (
+        <Text
+          style={[Fonts.textTiny, Layout.rightAlignAuto, Gutters.tinyLPadding]}
+        >
+          {label}
+        </Text>
+      )}
       <Input
         containerStyle={styles}
         leftIcon={<Icon name={icon} size={24} />}
@@ -67,7 +77,7 @@ const InputForm = ({
         errorMessage={description !== '' ? description : undefined}
         errorStyle={[Fonts.textLight]}
       />
-    </>
+    </View>
   );
 };
 

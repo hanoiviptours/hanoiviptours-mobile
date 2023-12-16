@@ -4,6 +4,7 @@ export { default as Image } from './Image/Image';
 export { default as InputForm } from './Forms/InputForm';
 export { default as InputPassword } from './Forms/InputPassword';
 export { default as DividerButtonForm } from './Forms/DividerButtonForm';
+export { default as DividerForm } from './Forms/DividerForm';
 
 //COMMON
 export { default as Stepper } from './Common/Stepper';
@@ -24,3 +25,4 @@ export { default as IconBox } from './Typography/IconBox';
 export { default as Text } from './Typography/Text';
 export { default as Button } from './Typography/Button';
 export { default as ButtonGroup } from './Typography/ButtonGroup';
+export { default as RadioButtons } from './Typography/RadioButtons';

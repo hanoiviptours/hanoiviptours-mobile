@@ -1,7 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IAirlineInfo } from '@/screens/PlaneList/ulities';
 
-interface FlightState extends IAirlineInfo {}
+export interface ICustomerInfomations {
+  id: number;
+  gender: 'MALE' | 'FEMALE';
+  firstName: string;
+  lastName: string;
+  key: 'adult' | 'children' | 'baby';
+}
+
+interface FlightState extends IAirlineInfo {
+  customers: ICustomerInfomations[];
+}
 
 const initialState: FlightState = {
   name: '',
@@ -17,6 +27,7 @@ const initialState: FlightState = {
   flightCodeNumber: '',
   flightTotalPrice: '',
   flightDateTime: '',
+  customers: [],
 };
 const flightSlice = createSlice({
   name: 'flight',

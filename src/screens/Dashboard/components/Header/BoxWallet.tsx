@@ -83,9 +83,8 @@ const BoxWallet = ({ style, navigation }: BoxWalletProps) => {
         </View>
         <View style={[Layout.row]}>
           {iconBoxes.map((item, index) => (
-            <View style={[Layout.col, { paddingLeft: 20 }]}>
+            <View style={[Layout.col, { paddingLeft: 20 }]} key={index}>
               <IconBox
-                key={index}
                 styles={[Layout.center, Layout.justifyContentCenter]}
                 textStyles={[Fonts.textTiny, Layout.center]}
                 icon={{

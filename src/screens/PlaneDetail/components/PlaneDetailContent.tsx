@@ -3,7 +3,7 @@ import { View, useWindowDimensions } from 'react-native';
 import { useTheme } from '@/hooks';
 import { PlaneTicketClass } from './PlaneDetailBody';
 
-const PlaneDetailContent: React.FC = ({}) => {
+const PlaneDetailContent: React.FC = ({ navigation }: any) => {
   const { Layout } = useTheme();
   const { height } = useWindowDimensions();
 
@@ -15,7 +15,7 @@ const PlaneDetailContent: React.FC = ({}) => {
         { paddingBottom: height * 0.16 },
       ]}
     >
-      <PlaneTicketClass />
+      <PlaneTicketClass navigation={navigation} />
     </View>
   );
 };

@@ -1,6 +1,7 @@
 import { Icon } from '@/components';
 import { TFunction } from 'i18next';
 import { Switch } from '@/components';
+import { ICustomerInfomations } from '@/store/flight';
 
 const iconSize = 30;
 
@@ -26,25 +27,53 @@ interface PressEventProps {
   handleDatePicker: (dateMode: 'single' | 'range') => void;
   handleCustomerPicker: () => void;
 }
+
+const renderCustomer = (
+  t: TFunction,
+  customerInfomations?: ICustomerInfomations[],
+) => {
+  const customerCountMap: { [key: string]: number } = {};
+
+  customerInfomations?.forEach(customer => {
+    const { key } = customer;
+    if (customerCountMap[key]) {
+      customerCountMap[key]++;
+    } else {
+      customerCountMap[key] = 1;
+    }
+  });
+
+  const renderedCustomers = Object.entries(customerCountMap).map(
+    ([type, count]) => {
+      return `${count} ${t(`plane:${type}`).toLowerCase()} `;
+    },
+  );
+
+  const joinedCustomers = renderedCustomers.join(', ');
+  return joinedCustomers;
+};
+
 const ButtonForm = ({
   t,
   isEnabled,
   onSwitch,
   pressEvent,
   pickedValue,
+  customerInfomation,
 }: {
-  t?: TFunction;
+  t: TFunction;
   isEnabled: boolean;
   onSwitch: React.Dispatch<React.SetStateAction<boolean>>;
   pressEvent: PressEventProps;
   pickedValue: IPickedValueProps;
+  customerInfomation: ICustomerInfomations[];
 }): IButtonForm[] => [
   {
     iconLeft: (
       <Icon name="airplane-takeoff" type="material-community" size={iconSize} />
     ),
     iconRight: null,
-    subText: 'Điểm đi',
+    subText: t('plane:departurePoint'),
     text: 'Hà Nội',
   },
   {
@@ -52,7 +81,7 @@ const ButtonForm = ({
       <Icon name="airplane-landing" type="material-community" size={iconSize} />
     ),
     iconRight: null,
-    subText: 'Điểm đến',
+    subText: t('plane:destination'),
     text: 'Hồ Chí Minh',
   },
   {
@@ -60,7 +89,7 @@ const ButtonForm = ({
       <Icon name="airplane-clock" type="material-community" size={iconSize} />
     ),
     iconRight: <Switch isEnabled={isEnabled} onSwitch={onSwitch} />,
-    subText: 'Ngày đi',
+    subText: t('plane:departureDate'),
     text: pickedValue?.startDate,
     onPress: () => pressEvent.handleDatePicker('single'),
   },
@@ -70,7 +99,7 @@ const ButtonForm = ({
     ),
     disabled: !isEnabled,
     iconRight: null,
-    subText: 'Ngày về',
+    subText: t('plane:returnDate'),
     text: pickedValue?.endDate,
     onPress: () => pressEvent.handleDatePicker('range'),
   },
@@ -79,8 +108,8 @@ const ButtonForm = ({
       <Icon name="account-group" type="material-community" size={iconSize} />
     ),
     iconRight: <Icon name="chevron-right" size={30} />,
-    subText: 'Số lượng khách',
-    text: '1 người lớn',
+    subText: t('plane:customerNumber'),
+    text: renderCustomer(t, customerInfomation),
     onPress: () => pressEvent.handleCustomerPicker(),
   },
   {
@@ -88,7 +117,7 @@ const ButtonForm = ({
       <Icon name="airplane" type="material-community" size={iconSize} />
     ),
     iconRight: <Icon name="chevron-right" size={30} />,
-    subText: 'Hạng vé',
+    subText: t('plane:ticketClass'),
     text: 'Tất cả',
   },
 ];

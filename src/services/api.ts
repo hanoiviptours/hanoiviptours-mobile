@@ -4,10 +4,10 @@ import {
   FetchArgs,
   fetchBaseQuery,
   FetchBaseQueryError,
-} from "@reduxjs/toolkit/query/react";
+} from '@reduxjs/toolkit/query/react';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://hnvjptour.cuterabbit.art",
+  baseUrl: 'http://127.0.0.1:3000',
 });
 
 const baseQueryWithInterceptor: BaseQueryFn<

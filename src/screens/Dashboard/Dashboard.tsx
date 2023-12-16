@@ -7,6 +7,7 @@ import { useTheme } from '@/hooks'; // updated import
 import { Colors } from '@/theme/Variables'; // updated import
 import BoxHeader from './components/Header/BoxHeader';
 import MainBody from './components/Body/MainBody';
+import { useGetUserInfoQuery } from '@/services/modules/users/index';
 
 const Dashboard = ({ navigation }: any) => {
   // const { height } = useWindowDimensions();
@@ -21,8 +22,7 @@ const Dashboard = ({ navigation }: any) => {
   } = useTheme();
   const dispatch = useDispatch();
 
-  // const [fetchOne, { data, isSuccess, isLoading, isFetching }] =
-  //   useLazyFetchOneQuery();
+  const { data, error, isLoading } = useGetUserInfoQuery('bulbasaur');
 
   // const onChangeTheme = ({ theme, darkMode }: Partial<ThemeState>) => {
   //   dispatch(changeTheme({ theme, darkMode }));
@@ -35,7 +35,12 @@ const Dashboard = ({ navigation }: any) => {
   return (
     <ScrollView style={[Layout.fill, { backgroundColor: Colors.textGray100 }]}>
       <View
-        style={[Layout.center, Layout.fullWidth, Layout.justifyContentStart]}
+        style={[
+          Layout.center,
+          Layout.fullWidth,
+          Layout.justifyContentStart,
+          { backgroundColor: Colors.white },
+        ]}
       >
         <BoxHeader navigation={navigation} />
       </View>
@@ -45,7 +50,6 @@ const Dashboard = ({ navigation }: any) => {
           Layout.col,
           Gutters.smallMargin,
           // { paddingLeft: 20, paddingRight: 20 },
-          ,
         ]}
       >
         <MainBody navigation={navigation} />

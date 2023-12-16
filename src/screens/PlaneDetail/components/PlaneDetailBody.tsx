@@ -13,8 +13,9 @@ import { FlightDetailGuidance } from '../ulities';
 type IPlaneTicketClass = {
   selectedIndex?: number;
   buttons?: string[];
-  onPress?: () => void;
+  onPress?: (value: number) => void;
   flightInfo?: IAirlineInfo;
+  navigation?: any;
 };
 
 const TicketClassSeats: FC<IPlaneTicketClass> = ({
@@ -133,9 +134,61 @@ const TicketClass: FC<IPlaneTicketClass> = ({ onPress }) => {
     </TouchableOpacity>
   );
 };
-export const PlaneTicketClass: FC<IPlaneTicketClass> = () => {
+
+const FlightDivider: FC<IPlaneTicketClass> = ({ selectedIndex }) => {
+  const { Layout } = useTheme();
+  return (
+    <View
+      style={[
+        Layout.fullWidth,
+        {
+          marginBottom: 20,
+          borderColor: Colors.primaryColor,
+          borderWidth: 1.5,
+        },
+      ]}
+    >
+      <View
+        style={[
+          Layout.absolute,
+          {
+            width: 10,
+            height: 10,
+            top: -10,
+            left: 40,
+            borderLeftWidth: 10,
+            borderLeftColor: 'transparent',
+            borderRightWidth: 10,
+            borderRightColor: 'transparent',
+            borderBottomWidth: 10,
+            borderBottomColor: Colors.primaryColor,
+          },
+        ]}
+      />
+      <View
+        style={[
+          Layout.absolute,
+          {
+            width: 15,
+            height: 12,
+            top: -8,
+            left: 40,
+            borderLeftWidth: 10,
+            borderLeftColor: 'transparent',
+            borderRightWidth: 10,
+            borderRightColor: 'transparent',
+            borderBottomWidth: 10,
+            borderBottomColor: Colors.textGray100,
+          },
+        ]}
+      />
+    </View>
+  );
+};
+export const PlaneTicketClass: FC<IPlaneTicketClass> = ({ navigation }) => {
   const { Gutters, Layout, Fonts } = useTheme();
   const flightInfo = useSelector((state: any) => state.flight);
+
   const [selectedTicketClass, setSelectedTicketClass] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { t } = useTranslation(['plane']);
@@ -168,51 +221,7 @@ export const PlaneTicketClass: FC<IPlaneTicketClass> = () => {
         <TicketClass onPress={handlePickedTicketClass} />
       </ScrollView>
       <View style={[Layout.fill, { backgroundColor: Colors.textGray100 }]}>
-        <View
-          style={[
-            Layout.fullWidth,
-            {
-              marginBottom: 20,
-              borderColor: Colors.primaryColor,
-              borderWidth: 1.5,
-            },
-          ]}
-        >
-          <View
-            style={[
-              Layout.absolute,
-              {
-                width: 10,
-                height: 10,
-                top: -10,
-                left: 40,
-                borderLeftWidth: 10,
-                borderLeftColor: 'transparent',
-                borderRightWidth: 10,
-                borderRightColor: 'transparent',
-                borderBottomWidth: 10,
-                borderBottomColor: Colors.primaryColor,
-              },
-            ]}
-          />
-          <View
-            style={[
-              Layout.absolute,
-              {
-                width: 15,
-                height: 12,
-                top: -8,
-                left: 40,
-                borderLeftWidth: 10,
-                borderLeftColor: 'transparent',
-                borderRightWidth: 10,
-                borderRightColor: 'transparent',
-                borderBottomWidth: 10,
-                borderBottomColor: Colors.textGray100,
-              },
-            ]}
-          />
-        </View>
+        <FlightDivider selectedIndex={selectedTicketClass} />
         <View>
           <TicketClassSeats
             buttons={[
@@ -235,7 +244,7 @@ export const PlaneTicketClass: FC<IPlaneTicketClass> = () => {
             textStyles={[
               Fonts.textTiny,
               Layout.alignItemsStart,
-              { colors: Colors.textGray200, marginLeft: 5 },
+              { marginLeft: 5 },
             ]}
             icon={{
               type: item.type,
@@ -255,12 +264,7 @@ export const PlaneTicketClass: FC<IPlaneTicketClass> = () => {
           type="primary"
           align="center"
           radius={30}
-          // onPress={() =>
-          //   navigation.navigate('PlaneList', {
-          //     title: 'Hà Nội -> Thành phố Hồ Chí Minh',
-          //     subTitle: '1/10/2023 - 1 khách',
-          //   })
-          // }
+          onPress={() => navigation.navigate('PlaneCheckout')}
         />
       </View>
     </>

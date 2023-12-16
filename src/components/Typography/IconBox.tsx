@@ -4,11 +4,11 @@ import { Text, TouchableOpacity, ViewStyle } from 'react-native';
 import IconComponent from './Icon';
 
 type IconProps = {
-  type: string;
-  name: string;
-  size: number;
-  color: string;
-  svg: any;
+  type?: string;
+  name?: string;
+  size?: number;
+  color?: string;
+  svg?: any;
 };
 
 const RenderIcon = ({ type, name, size, color, svg }: IconProps) => {

@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import { useTheme } from '@/hooks';
 import { Colors } from '../../theme/Variables';
 
-type DividerButtonFormProps = {
+type DividerFormProps = {
   iconLeft?: React.ReactNode;
   iconRight?: React.ReactNode;
   subText?: string;
@@ -12,12 +12,11 @@ type DividerButtonFormProps = {
   textStyles?: any;
   subTextStyles?: any;
   viewStyle?: any;
-  onPress?: () => void;
   swapHeader?: boolean;
   divider?: 'tiny' | 'small' | 'medium' | 'large';
 };
 
-const DividerButtonForm = ({
+const DividerForm = ({
   iconLeft,
   iconRight,
   subText = '',
@@ -27,9 +26,8 @@ const DividerButtonForm = ({
   text,
   textStyles,
   viewStyle,
-  onPress,
   divider = 'medium',
-}: DividerButtonFormProps) => {
+}: DividerFormProps) => {
   const { Gutters, Fonts, Layout } = useTheme();
   const dividerHeight =
     divider === 'small'
@@ -39,7 +37,7 @@ const DividerButtonForm = ({
       : Gutters.largeTMargin;
 
   return (
-    <TouchableOpacity
+    <View
       style={[
         Layout.col,
         Gutters.tinyTMargin,
@@ -48,7 +46,6 @@ const DividerButtonForm = ({
         },
         viewStyle,
       ]}
-      onPress={onPress ? onPress : () => {}}
     >
       <View style={[Layout.justifyContentBetween]}>
         <View
@@ -94,8 +91,8 @@ const DividerButtonForm = ({
           ]}
         />
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 
-export default DividerButtonForm;
+export default DividerForm;

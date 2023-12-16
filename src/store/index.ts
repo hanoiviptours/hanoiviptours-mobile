@@ -17,11 +17,13 @@ import { api } from '../services/api';
 import theme from './theme';
 import auth from './auth';
 import flight from './flight';
+import steps from './checkoutsteps';
 
 const reducers = combineReducers({
   theme,
   auth,
   flight,
+  steps,
   [api.reducerPath]: api.reducer,
 });
 

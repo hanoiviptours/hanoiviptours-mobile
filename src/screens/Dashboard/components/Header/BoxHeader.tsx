@@ -51,11 +51,10 @@ const BoxHeader = ({ navigation }: any) => {
                   }}
                 />
               </TouchableOpacity>
-              <View>
-                {buttons.map((item, index) =>
-                  item.route === 'info' ? (
+              {buttons.map((item, index) => (
+                <View key={index}>
+                  {item.route === 'info' ? (
                     <Text
-                      key={index}
                       style={[
                         {
                           color: Colors.white,
@@ -64,9 +63,9 @@ const BoxHeader = ({ navigation }: any) => {
                     >
                       {item.title}
                     </Text>
-                  ) : null,
-                )}
-              </View>
+                  ) : null}
+                </View>
+              ))}
             </View>
             <View style={[Layout.row, Layout.justifyContentBetween]}>
               {buttons.map((item, index) => (
@@ -74,7 +73,6 @@ const BoxHeader = ({ navigation }: any) => {
                   key={index}
                   name={item.icon}
                   size={25}
-                  // setState={() => onChangeTheme({ darkMode: !isDark })}
                   type={'material-community'}
                   color={Colors.white}
                 />

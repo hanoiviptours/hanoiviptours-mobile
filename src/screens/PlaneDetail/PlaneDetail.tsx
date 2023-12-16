@@ -6,7 +6,7 @@ import PlaneDetailHeader from './components/PlaneDetailHeader';
 import { ScrollView } from 'react-native-gesture-handler';
 import PlaneDetailContent from './components/PlaneDetailContent';
 
-const PlaneDetail = () => {
+const PlaneDetail = ({ navigation }: any) => {
   const { Gutters, Layout } = useTheme();
   const pan = useRef(new Animated.ValueXY()).current;
 
@@ -28,7 +28,7 @@ const PlaneDetail = () => {
       ]}
     >
       <PlaneDetailHeader pan={pan} />
-      <PlaneDetailContent />
+      <PlaneDetailContent navigation={navigation} />
     </ScrollView>
   );
 };

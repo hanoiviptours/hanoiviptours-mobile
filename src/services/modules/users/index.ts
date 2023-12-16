@@ -7,11 +7,10 @@ export type User = {
 
 export const userApi = api.injectEndpoints({
   endpoints: build => ({
-    fetchOne: build.query<User, string>({
+    getUserInfo: build.query<User, string>({
       query: id => `/users/${id}`,
     }),
   }),
-  overrideExisting: false,
 });
 
-export const { useLazyFetchOneQuery } = userApi;
+export const { useGetUserInfoQuery } = userApi;

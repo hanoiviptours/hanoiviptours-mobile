@@ -2,5 +2,6 @@
   "register": "Create a new account",
   "topup": "Top-up funds",
   "plane": "Airplane ticket",
-  "planeDetails": "Flight details"
+  "planeDetails": "Flight details",
+  "planeCheckout": "Checkout airplane ticket"
 }

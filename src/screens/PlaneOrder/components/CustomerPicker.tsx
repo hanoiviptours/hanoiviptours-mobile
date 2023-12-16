@@ -1,22 +1,32 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { useTheme } from '@/hooks';
 import { Colors } from '../../../theme/Variables';
 import { BottomDrawer } from '@/components';
-import { NumberChoosing, Button, DividerButtonForm } from '@/components';
+import { NumberChoosing, Button, DividerForm } from '@/components';
 import { useTranslation } from 'react-i18next';
 import ExtraUtils from './ExtraUtils';
 import { GroupCustomer } from '@/theme/assets/icons';
+import { ICustomerInfomations, setFlightInfo } from '@/store/flight';
+import { createNewCustomerInfos } from '../ulities';
 
 type CardProps = {
   bottomSheetModalRef: any;
+};
+type ICustomerInfo = {
+  adult: number;
+  children: number;
+  baby: number;
 };
 const iconSize = 30;
 
 const CustomerPicker = ({ bottomSheetModalRef }: CardProps) => {
   const { Layout, Gutters, Fonts, darkMode: isDark } = useTheme();
+  const dispatch = useDispatch();
   const { t } = useTranslation(['plane']);
-  const [customerValue, setCustomerValue] = useState({
+
+  const [customerValue, setCustomerValue] = useState<ICustomerInfo>({
     adult: 1,
     children: 0,
     baby: 0,
@@ -31,6 +41,30 @@ const CustomerPicker = ({ bottomSheetModalRef }: CardProps) => {
     },
     [setCustomerValue],
   );
+
+  const newAdultCustomers = createNewCustomerInfos(
+    customerValue.adult,
+    'adult',
+  );
+  const newChildrenCustomers = createNewCustomerInfos(
+    customerValue.children,
+    'children',
+  );
+  const newBabyCustomers = createNewCustomerInfos(customerValue.baby, 'baby');
+
+  const newCustomerValues: ICustomerInfomations[] = [
+    ...newAdultCustomers,
+    ...newChildrenCustomers,
+    ...newBabyCustomers,
+  ];
+
+  useEffect(() => {
+    dispatch(setFlightInfo({ customers: newCustomerValues }));
+  }, [customerValue, dispatch]);
+
+  const closeModal = useCallback(() => {
+    bottomSheetModalRef.current?.close();
+  }, []);
 
   const renderButtons = [
     {
@@ -71,11 +105,11 @@ const CustomerPicker = ({ bottomSheetModalRef }: CardProps) => {
     },
   ];
   return (
-    <BottomDrawer snapPoint="55%" ref={bottomSheetModalRef}>
+    <BottomDrawer snapPoint="48%" ref={bottomSheetModalRef}>
       <View style={[Layout.fill, Layout.col]}>
         {renderButtons.map((item, index) => (
           <View key={index}>
-            <DividerButtonForm
+            <DividerForm
               iconLeft={item.iconLeft}
               iconRight={item.iconRight}
               subText={item.subText}
@@ -84,7 +118,6 @@ const CustomerPicker = ({ bottomSheetModalRef }: CardProps) => {
             />
           </View>
         ))}
-
         <ExtraUtils
           style={{ borderRadius: 5, marginBottom: 10, height: 70 }}
           icon={<GroupCustomer />}
@@ -95,11 +128,12 @@ const CustomerPicker = ({ bottomSheetModalRef }: CardProps) => {
         />
         <Button
           viewStyle={[Gutters.smallBMargin]}
-          title={t('plane:confirm')}
+          title={t('plane:apply')}
           height={45}
           type="primary"
           align="center"
           radius={30}
+          onPress={closeModal}
         />
       </View>
     </BottomDrawer>

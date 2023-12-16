@@ -1,19 +1,18 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
 import { useTheme } from '../../hooks';
-// import { changeTheme, ThemeState } from '../../store/theme';
 import { Icon as LibIcon } from '@rneui/themed';
 import { Colors } from '../../theme/Variables';
 
-type Props = {
-  name?: string;
-  size?: number;
-  type?: string;
-  color?: string;
+type IIconProps = {
+  name: string;
+  size: number;
+  type: string;
+  color: string;
   setState?: (state: any) => void;
   style?: any;
 };
-const Icon = ({ name, size, color, type, setState, style }: Props) => {
-  const { Gutters, darkMode: isDark } = useTheme();
+const Icon = ({ name, size, color, type, setState, style }: IIconProps) => {
+  const { Gutters } = useTheme();
 
   return (
     <>
@@ -22,7 +21,7 @@ const Icon = ({ name, size, color, type, setState, style }: Props) => {
         containerStyle={style}
         disabledStyle={{}}
         iconStyle={Gutters.tinyLPadding}
-        name={name ? name : ''}
+        name={name}
         onLongPress={() => console.log('onLongPress()')}
         onPress={setState}
         size={size}

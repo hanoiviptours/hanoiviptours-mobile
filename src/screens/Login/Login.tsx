@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Brand } from '../../components';
 import { useTheme, useToast } from '../../hooks';
 import { useDoLoginMutation } from '../../services/modules/auth';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { useBottomSheetModal } from '@/hooks';
 import { setToken } from '../../store/auth';
 import {
   Image,
@@ -23,11 +23,12 @@ import { ApplicationScreenProps } from '../../../@types/navigation';
 
 const { Colors, Width, Icons } = DefaultVariables;
 
-const Login = ({ navigation }: ApplicationScreenProps) => {
+const Login = ({ navigation }: any) => {
   const [userNumber, onChangeUserNumber] = useState('');
   const [userPassword, onChangeUserPassword] = useState('');
 
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const { bottomSheetModalRef, closeModal, presentModal } =
+    useBottomSheetModal();
   const { showToast } = useToast({ message: 'Login Success', type: 'success' });
 
   const { t } = useTranslation(['login']);
@@ -64,14 +65,8 @@ const Login = ({ navigation }: ApplicationScreenProps) => {
       console.log('Error:', e);
     }
   };
-
-  // callbacks
-  const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present();
-  }, []);
-
   const onPressAgency = (name: string) => {
-    bottomSheetModalRef.current?.close();
+    closeModal();
     navigation.navigate('Register');
   };
 
@@ -128,9 +123,7 @@ const Login = ({ navigation }: ApplicationScreenProps) => {
                     type={item.type}
                     align="center"
                     onPress={
-                      item.buttonType === 'register'
-                        ? handlePresentModalPress
-                        : onLogin
+                      item.buttonType === 'register' ? presentModal : onLogin
                     }
                     radius={30}
                   />

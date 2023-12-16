@@ -1,7 +1,9 @@
 import React, { useCallback } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import { useTheme } from '@/hooks';
 import { Text, Icon } from '@/components';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Colors } from '@/theme/Variables';
 
 type NumberChoosingProps = {
   value: number;
@@ -20,11 +22,11 @@ const NumberChoosing = ({
     if (value > 0) {
       onValueChange(value - 1);
     }
-  }, [value, onValueChange]);
+  }, [onValueChange]);
 
   const handlePlusPress = useCallback(() => {
     onValueChange(value + 1);
-  }, [value, onValueChange]);
+  }, [onValueChange]);
 
   return (
     <View style={[Layout.row, Layout.alignItemsCenter]}>
@@ -32,7 +34,11 @@ const NumberChoosing = ({
         onPress={handleMinusPress}
         style={[Gutters.tinyRMargin]}
       >
-        <Icon name="remove-circle" size={iconSize} />
+        <Icon
+          color={value == 0 ? Colors.textGray300 : Colors.primaryColor}
+          name="remove-circle"
+          size={iconSize}
+        />
       </TouchableOpacity>
       <Text
         type="body"

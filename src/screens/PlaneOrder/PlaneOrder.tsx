@@ -1,6 +1,6 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, ScrollView, Text, Platform } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import {
   ButtonGroup,
@@ -8,7 +8,7 @@ import {
   Button,
   RangeDatePicker,
 } from '@/components';
-import { useTheme } from '@/hooks';
+import { useTheme, useBottomSheetModal } from '@/hooks';
 import { Colors } from '@/theme/Variables';
 import ExtraUtils from './components/ExtraUtils';
 import ButtonForm from './components/ButtonForm';
@@ -17,7 +17,6 @@ import RenderExtraUtils from './components/RenderExtraUtils';
 import { formatDate } from '@/utils';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Reverse } from '@/theme/assets/icons';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import moment from 'moment';
 
 const currentDate = moment().toDate();
@@ -25,14 +24,15 @@ const absoluteIcon = Platform.OS === 'ios' ? '-35%' : '-20%';
 
 const PlaneOrder = ({ navigation }: any) => {
   const dispatch = useDispatch();
-  const { t } = useTranslation(['plane']);
-  const { Gutters, Layout } = useTheme();
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const currentUserInfos = useSelector((state: any) => state.flight);
 
+  const { t } = useTranslation(['plane']);
+  const { bottomSheetModalRef, presentModal } = useBottomSheetModal();
+  const { Gutters, Layout } = useTheme();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [dateMode, setDateMode] = useState<'single' | 'range'>('single');
 
-  const [isEnableRound, setIsEnableRound] = useState(false);
+  const [isEnableRoundTrip, setIsEnableRoundTrip] = useState(false);
   const [range, setRange] = useState<Date | any>({
     startDate: currentDate,
     endDate: currentDate,
@@ -48,10 +48,6 @@ const PlaneOrder = ({ navigation }: any) => {
     [setOpenDatePicker, setRange],
   );
 
-  const handleCustomerPicker = useCallback(() => {
-    bottomSheetModalRef.current?.present();
-  }, []);
-
   const handleDatePicker = useCallback(
     (dateMode: 'single' | 'range') => {
       setDateMode(dateMode);
@@ -66,22 +62,23 @@ const PlaneOrder = ({ navigation }: any) => {
 
   const renderButtons = ButtonForm({
     t,
-    isEnabled: isEnableRound,
-    onSwitch: setIsEnableRound,
+    isEnabled: isEnableRoundTrip,
+    onSwitch: setIsEnableRoundTrip,
+    customerInfomation: currentUserInfos.customers,
     pickedValue: {
       startDate: formatDate(range.startDate, 'DD/MM/YYYY'),
       endDate: formatDate(range.endDate, 'DD/MM/YYYY'),
     },
     pressEvent: {
       handleDatePicker: handleDatePicker,
-      handleCustomerPicker: handleCustomerPicker,
+      handleCustomerPicker: presentModal,
     },
   });
   const renderExtraUtils = RenderExtraUtils(t);
 
   const handlePress = useCallback((value: number) => {
     setSelectedIndex(value);
-  }, [])
+  }, []);
   return (
     <>
       <ScrollView

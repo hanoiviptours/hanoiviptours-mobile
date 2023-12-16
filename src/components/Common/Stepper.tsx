@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 import { ProgressStep, ProgressSteps } from 'react-native-progress-steps';
 import { Colors } from '../../theme/Variables';
 
@@ -11,6 +10,8 @@ type Step = {
 type Props = {
   steps: Step[];
   activeStep?: number;
+  marginBottom?: number;
+  scrollable?: boolean;
 };
 const progressStepsStyle = {
   activeStepIconBorderColor: Colors.primaryColor,
@@ -22,12 +23,22 @@ const progressStepsStyle = {
   completedCheckColor: Colors.white,
   labelFontSize: 13,
   activeLabelFontSize: 15,
+  topOffset: 10,
 };
-const Stepper = ({ steps, activeStep }: Props) => {
+const Stepper = ({ steps, activeStep, marginBottom, scrollable }: Props) => {
   return (
-    <ProgressSteps activeStep={activeStep} {...progressStepsStyle}>
+    <ProgressSteps
+      activeStep={activeStep}
+      {...progressStepsStyle}
+      marginBottom={marginBottom}
+    >
       {steps.map((step, index) => (
-        <ProgressStep removeBtnRow key={index} label={step.label}>
+        <ProgressStep
+          removeBtnRow
+          scrollable={scrollable}
+          key={index}
+          label={step.label}
+        >
           {step.component}
         </ProgressStep>
       ))}
