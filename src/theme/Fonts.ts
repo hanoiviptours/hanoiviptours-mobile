@@ -84,5 +84,8 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
       fontFamily: 'lobster',
       fontWeight: 'normal',
     },
+    borderBottom: {
+      borderBottomWidth: 1,
+    },
   });
 }

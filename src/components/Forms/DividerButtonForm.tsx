@@ -6,6 +6,7 @@ import { Colors } from '../../theme/Variables';
 type DividerButtonFormProps = {
   iconLeft?: React.ReactNode;
   iconRight?: React.ReactNode;
+  textRight?: string;
   subText?: string;
   subTextRow?: boolean;
   text: string;
@@ -20,6 +21,7 @@ type DividerButtonFormProps = {
 const DividerButtonForm = ({
   iconLeft,
   iconRight,
+  textRight,
   subText = '',
   subTextStyles,
   subTextRow = false,
@@ -36,7 +38,9 @@ const DividerButtonForm = ({
       ? Gutters.smallTMargin
       : divider === 'medium'
       ? Gutters.regularTMargin
-      : Gutters.largeTMargin;
+      : Gutters.largeTMargin
+      ? divider === 'tiny' && Gutters.tinyTMargin
+      : null;
 
   return (
     <TouchableOpacity
@@ -75,7 +79,15 @@ const DividerButtonForm = ({
             {!swapHeader && <Text style={[Fonts.textSmall]}>{text}</Text>}
           </View>
 
-          <View style={[Layout.leftAlignAuto, Gutters.smallRMargin]}>
+          <View
+            style={[
+              Layout.row,
+              Layout.leftAlignAuto,
+              Gutters.smallRMargin,
+              Layout.alignItemsCenter,
+            ]}
+          >
+            {textRight && <Text style={[Fonts.textSmall]}>{textRight}</Text>}
             {iconRight}
           </View>
         </View>

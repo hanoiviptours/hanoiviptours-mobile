@@ -38,5 +38,7 @@
   "male": "Male",
   "female": "Female",
   "firstName": "First name",
-  "done": "Done"
+  "done": "Done",
+  "seat": "Seat",
+  "notPickSeat": "Plesse select a seat"
 }

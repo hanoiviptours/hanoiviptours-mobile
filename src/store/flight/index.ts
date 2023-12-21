@@ -7,6 +7,7 @@ export interface ICustomerInfomations {
   firstName: string;
   lastName: string;
   key: 'adult' | 'children' | 'baby';
+  seat: string;
 }
 
 interface FlightState extends IAirlineInfo {

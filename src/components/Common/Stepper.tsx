@@ -4,7 +4,7 @@ import { Colors } from '../../theme/Variables';
 
 type Step = {
   label: string;
-  component: React.ReactNode;
+  component: any;
 };
 
 type Props = {

@@ -31,6 +31,10 @@ const PlaneOrder = ({ navigation }: any) => {
   const { Gutters, Layout } = useTheme();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [dateMode, setDateMode] = useState<'single' | 'range'>('single');
+  const [location, setLocation] = useState({
+    origin: 'HAN',
+    destination: 'HCM',
+  });
 
   const [isEnableRoundTrip, setIsEnableRoundTrip] = useState(false);
   const [range, setRange] = useState<Date | any>({
@@ -46,6 +50,13 @@ const PlaneOrder = ({ navigation }: any) => {
       setRange({ startDate, endDate });
     },
     [setOpenDatePicker, setRange],
+  );
+
+  const handleLocation = useCallback(
+    (property: string, value: string) => {
+      setLocation(location => ({ ...location, [property]: value }));
+    },
+    [setLocation],
   );
 
   const handleDatePicker = useCallback(
@@ -65,6 +76,7 @@ const PlaneOrder = ({ navigation }: any) => {
     isEnabled: isEnableRoundTrip,
     onSwitch: setIsEnableRoundTrip,
     customerInfomation: currentUserInfos.customers,
+    location: location,
     pickedValue: {
       startDate: formatDate(range.startDate, 'DD/MM/YYYY'),
       endDate: formatDate(range.endDate, 'DD/MM/YYYY'),
@@ -72,6 +84,7 @@ const PlaneOrder = ({ navigation }: any) => {
     pressEvent: {
       handleDatePicker: handleDatePicker,
       handleCustomerPicker: presentModal,
+      handleLocation: handleLocation,
     },
   });
   const renderExtraUtils = RenderExtraUtils(t);

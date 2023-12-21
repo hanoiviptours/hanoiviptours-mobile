@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { useTheme } from '@/hooks';
 import { Colors } from '@/theme/Variables';

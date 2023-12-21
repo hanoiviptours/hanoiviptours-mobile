@@ -16,6 +16,7 @@ const MemoizedCustomerInput = memo(CustomerInputForm);
 type CustomerInputProps = {
   label: string;
   title?: string;
+  isContactUser?: boolean;
 };
 
 const initialUserInfomations: ICustomerInfomations = {
@@ -24,6 +25,7 @@ const initialUserInfomations: ICustomerInfomations = {
   firstName: '',
   lastName: '',
   key: 'adult',
+  seat: '',
 };
 const CustomerInput: FC<CustomerInputProps> = ({ label, title }) => {
   const { Gutters, Fonts } = useTheme();
@@ -50,14 +52,15 @@ const CustomerInput: FC<CustomerInputProps> = ({ label, title }) => {
       <Text
         style={[Gutters.smallLPadding, Gutters.smallRPadding, Fonts.titleSmall]}
       >
-        {label}
+        {`${label} `}
+        <Text style={[Fonts.textPrimary, { color: Colors.error }]}>*</Text>
       </Text>
 
-      {currentCustomerInfos ? (
+      {currentCustomerInfos &&
         customerInfos.map((item: ICustomerInfomations, index: number) => (
           <DividerButtonForm
             key={index}
-            iconRight={<Icon name="play-arrow" size={25} type="material" />}
+            iconRight={<Icon name="play-arrow" size={20} type="material" />}
             textStyles={{ color: Colors.warning }}
             viewStyle={[Gutters.smallTPadding]}
             text={
@@ -67,21 +70,12 @@ const CustomerInput: FC<CustomerInputProps> = ({ label, title }) => {
                   }`
                 : `${t(`plane:${item.key}`)} ${item.id + 1}`
             }
-            divider="small"
+            subText={item.firstName && item.lastName && t(`plane:${item.key}`)}
+            divider="tiny"
             swapHeader
             onPress={() => onChooseCustomer(item)}
           />
-        ))
-      ) : (
-        <DividerButtonForm
-          iconRight={<Icon name="play-arrow" size={25} type="material" />}
-          textStyles={{ color: Colors.warning }}
-          viewStyle={[Gutters.smallTPadding]}
-          text={title || ''}
-          divider="small"
-          swapHeader
-        />
-      )}
+        ))}
 
       <BottomDrawer snapPoint="55%" ref={bottomSheetModalRef}>
         <MemoizedCustomerInput
@@ -92,6 +86,68 @@ const CustomerInput: FC<CustomerInputProps> = ({ label, title }) => {
     </View>
   );
 };
+
+const CustomerContactInput: FC<CustomerInputProps> = ({
+  label,
+  isContactUser,
+}) => {
+  const { Gutters, Fonts } = useTheme();
+  const { t } = useTranslation(['plane']);
+  const [pickedUser, setPickedUser] = useState<ICustomerInfomations>(
+    initialUserInfomations,
+  );
+
+  const { bottomSheetModalRef, presentModal, closeModal } =
+    useBottomSheetModal();
+
+  // const onChooseCustomer = useCallback((currentUser: ICustomerInfomations) => {
+  //   presentModal();
+  //   setPickedUser(currentUser);
+  // }, []);
+
+  return (
+    <View style={[Gutters.smallTMargin]}>
+      <Text
+        style={[Gutters.smallLPadding, Gutters.smallRPadding, Fonts.titleSmall]}
+      >
+        {`${label} `}
+        <Text style={[Fonts.textPrimary, { color: Colors.error }]}>*</Text>
+      </Text>
+
+      {isContactUser && (
+        <Text
+          style={[
+            Gutters.smallLPadding,
+            Gutters.smallRPadding,
+            Gutters.smallTMargin,
+            Fonts.textTiny,
+            { color: Colors.textGray400 },
+          ]}
+        >
+          Nhận thông báo biến động chuyến bay từ hãng hàng không
+        </Text>
+      )}
+
+      <DividerButtonForm
+        iconRight={<Icon name="play-arrow" size={20} type="material" />}
+        textStyles={{ color: Colors.warning }}
+        viewStyle={[Gutters.smallTPadding]}
+        text={'Đỗ Tuấn Anh'}
+        textRight="0379075256"
+        divider="tiny"
+        // onPress={() => onChooseCustomer(item)}
+      />
+
+      <BottomDrawer snapPoint="55%" ref={bottomSheetModalRef}>
+        <MemoizedCustomerInput
+          pickedUser={pickedUser}
+          closeModal={closeModal}
+        />
+      </BottomDrawer>
+    </View>
+  );
+};
+
 const MemoizedCustomerInputForm = memo(CustomerInput);
 
 const PlaneCustomerInfo = () => {
@@ -114,6 +170,8 @@ const PlaneCustomerInfo = () => {
       <View>
         <PlaneHoldTime>
           <MemoizedCustomerInputForm label={'Thông tin hành khách'} />
+          <CustomerContactInput isContactUser label="Thông tin liên hệ" />
+          <CustomerContactInput label="Thông tin khách hàng đặt vé" />
         </PlaneHoldTime>
       </View>
       <Button

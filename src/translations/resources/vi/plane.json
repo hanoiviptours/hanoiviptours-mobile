@@ -1,7 +1,7 @@
 {
   "buttontype": "Một chiều/Khứ hồi",
   "buttoncity": "Nhiều thành phố",
-  "confirm": "Tìm kiếm",
+  "confirm": "Xác nhận",
   "continue": "Tiếp tục",
   "customerNumber": "Số lượng khách",
   "departurePoint": "Điểm đi",
@@ -45,5 +45,7 @@
   "female": "Nữ",
   "firstName": "Họ (không dấu)*",
   "name": "Đệm và Tên (không dấu)*",
-  "done": "Hoàn tất"
+  "done": "Hoàn tất",
+  "seat": "Ghế",
+  "notPickSeat": "Chưa chọn chỗ ngồi"
 }

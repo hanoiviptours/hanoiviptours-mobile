@@ -1,4 +1,5 @@
 import { Icon } from '@/components';
+
 import { TFunction } from 'i18next';
 import { Switch } from '@/components';
 import { ICustomerInfomations } from '@/store/flight';
@@ -26,6 +27,7 @@ export interface IPickedValueProps {
 interface PressEventProps {
   handleDatePicker: (dateMode: 'single' | 'range') => void;
   handleCustomerPicker: () => void;
+  handleLocation: (property: string, value: string) => void;
 }
 
 const renderCustomer = (
@@ -56,6 +58,7 @@ const renderCustomer = (
 const ButtonForm = ({
   t,
   isEnabled,
+  location,
   onSwitch,
   pressEvent,
   pickedValue,
@@ -63,6 +66,7 @@ const ButtonForm = ({
 }: {
   t: TFunction;
   isEnabled: boolean;
+  location: { origin: string; destination: string };
   onSwitch: React.Dispatch<React.SetStateAction<boolean>>;
   pressEvent: PressEventProps;
   pickedValue: IPickedValueProps;
@@ -74,7 +78,8 @@ const ButtonForm = ({
     ),
     iconRight: null,
     subText: t('plane:departurePoint'),
-    text: 'Hà Nội',
+    text: location.origin,
+    onPress: () => pressEvent.handleLocation('origin ', 'HAN'),
   },
   {
     iconLeft: (
@@ -82,7 +87,8 @@ const ButtonForm = ({
     ),
     iconRight: null,
     subText: t('plane:destination'),
-    text: 'Hồ Chí Minh',
+    text: location.destination,
+    onPress: () => pressEvent.handleLocation('destination', 'HCM'),
   },
   {
     iconLeft: (

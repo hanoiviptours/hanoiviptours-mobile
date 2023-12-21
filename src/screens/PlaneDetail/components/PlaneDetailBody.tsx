@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/hooks';
 import { Colors } from '@/theme/Variables';
-import { Icon, Button, IconBox } from '@/components';
+import { Icon, Button, IconBox, BoxIconText } from '@/components';
 import { IAirlineInfo } from '../../PlaneList/ulities';
 import { formatMoney } from '@/utils';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -91,50 +91,6 @@ const TicketClassSeats: FC<IPlaneTicketClass> = ({
   );
 };
 
-const TicketClass: FC<IPlaneTicketClass> = ({ onPress }) => {
-  const { Gutters, Layout, Fonts } = useTheme();
-  return (
-    <TouchableOpacity onPress={onPress}>
-      <View
-        style={[
-          Layout.col,
-          Layout.alignItemsCenter,
-          Layout.justifyContentBetween,
-          Gutters.regularTMargin,
-          Gutters.smallBMargin,
-          Gutters.tinyLMargin,
-          Gutters.tinyRMargin,
-          {
-            padding: 7,
-            backgroundColor: Colors.primaryColor,
-            width: 'auto',
-            maxWidth: 100,
-            height: 105,
-            borderRadius: 5,
-          },
-        ]}
-      >
-        <Icon
-          name="airline-seat-recline-normal"
-          type="material"
-          color={Colors.white}
-          size={35}
-          style={[Layout.alignItemsCenter, { marginRight: 5 }]}
-        />
-        <Text style={[Fonts.textTiny, { color: Colors.white }]}>Phổ Thông</Text>
-        <Text
-          style={[
-            Fonts.textTiny,
-            { color: Colors.white, paddingBottom: 5, fontWeight: '600' },
-          ]}
-        >
-          {formatMoney(1797000, 'VND')}
-        </Text>
-      </View>
-    </TouchableOpacity>
-  );
-};
-
 const FlightDivider: FC<IPlaneTicketClass> = ({ selectedIndex }) => {
   const { Layout } = useTheme();
   return (
@@ -214,11 +170,25 @@ export const PlaneTicketClass: FC<IPlaneTicketClass> = ({ navigation }) => {
         {t('plane:ticketClass')}
       </Text>
       <ScrollView
-        style={{ marginBottom: -30, height: 0 }}
+        style={{ marginBottom: -30, height: 0, paddingLeft: 10 }}
         horizontal
         showsHorizontalScrollIndicator={false}
       >
-        <TicketClass onPress={handlePickedTicketClass} />
+        <BoxIconText
+          width={95}
+          height={100}
+          boxColor={Colors.primaryColor}
+          textStyles={{ color: Colors.white, paddingTop: 10 }}
+          icon={{
+            type: 'material',
+            name: 'airline-seat-recline-normal',
+            size: 35,
+            color: Colors.white,
+            svg: undefined,
+          }}
+          text={'Phổ thông'} // onPress={handlePickedTicketClass}
+          subText={formatMoney(1797000, 'VND')}
+        />
       </ScrollView>
       <View style={[Layout.fill, { backgroundColor: Colors.textGray100 }]}>
         <FlightDivider selectedIndex={selectedTicketClass} />

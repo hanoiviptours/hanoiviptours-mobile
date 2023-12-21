@@ -14,12 +14,13 @@ export { default as Switch } from './Common/Switch';
 export { default as BottomDrawer } from './Common/BottomDrawer';
 export { default as RangeDatePicker } from './Common/RangeDatePicker';
 export { default as NumberChoosing } from './Common/NumberChoosing';
+export { default as BoxIconText } from './Common/BoxIconText';
+export { default as SliderPicker } from './Common/SliderPicker';
 
 //TYPOGRAPHY
 export { default as Layout } from './Typography/Layout';
 export { default as GradientBox } from './Typography/GradientBox';
 export { default as ShadowBox } from './Typography/ShadowBox';
-export { default as SvgIcon } from './Typography/SvgIcon';
 export { default as Icon } from './Typography/Icon';
 export { default as IconBox } from './Typography/IconBox';
 export { default as Text } from './Typography/Text';

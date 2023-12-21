@@ -5,7 +5,7 @@ import IconComponent from './Icon';
 
 type IconProps = {
   type?: string;
-  name?: string;
+  name: string;
   size?: number;
   color?: string;
   svg?: any;

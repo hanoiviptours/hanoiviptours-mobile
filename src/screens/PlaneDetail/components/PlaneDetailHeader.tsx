@@ -57,7 +57,6 @@ const FlightHoursDestination: React.FC<IFlightHoursDestination> = ({
 const FlightContents: React.FC<PlaneListHeaderProps> = () => {
   const flightInfo = useSelector((state: any) => state.flight);
   const { Gutters, Layout, Fonts } = useTheme();
-  console.log('flightInfo-----', flightInfo);
 
   const {
     name,

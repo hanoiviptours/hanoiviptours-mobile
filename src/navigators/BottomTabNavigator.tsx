@@ -10,7 +10,6 @@ const { Colors } = DefaultVariables;
 
 const Tab = createMaterialBottomTabNavigator();
 const BottomTab = () => {
-  const { Layout, Images, Gutters } = useTheme();
   const navigation = useNavigation();
   const { t } = useTranslation(['commonText']);
 
