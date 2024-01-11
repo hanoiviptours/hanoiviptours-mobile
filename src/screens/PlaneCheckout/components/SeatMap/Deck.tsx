@@ -1,23 +1,21 @@
-import React, { FC, memo, useCallback, useState, useMemo } from 'react';
+import React, { FC, memo, useCallback } from 'react';
 import {
   View,
   Text,
-  TouchableOpacity,
   useWindowDimensions,
+  TouchableOpacity,
 } from 'react-native';
 import { useTheme } from '@/hooks';
 import { Colors } from '@/theme/Variables';
-import { ScrollView } from 'react-native-gesture-handler';
-import { useDispatch, useSelector } from 'react-redux';
-import { ICustomerInfomations } from '@/store/flight';
-import { setFlightInfo } from '@/store/flight';
+import { FlatList } from 'react-native-gesture-handler';
 
 type IDeckProps = {
   seatList: any[];
-  pickedUserId: number;
+  seatPicked: string;
+  onSeatPicked: (seat: string) => void;
 };
 type ISeatProps = {
-  onSelectSeat: () => void;
+  onSelectSeat: (seatNumber: string) => void;
   y: number;
   x: number;
   seatNumber: string;
@@ -26,50 +24,54 @@ type ISeatProps = {
 };
 type ISeatListProps = {
   seatList: any[];
-  seatPicked: string[];
+  seatPicked: string;
   handleSelectSeat: (seat: string) => void;
 };
 
-const Seat: FC<ISeatProps> = memo(
-  ({ y, x, seatNumber, backgroundColor, onSelectSeat, textColor }) => {
-    const { Fonts, Layout } = useTheme();
-    const { width } = useWindowDimensions();
+const Seat: FC<ISeatProps> = ({
+  y,
+  x,
+  seatNumber,
+  backgroundColor,
+  onSelectSeat,
+  textColor,
+}) => {
+  const { Fonts, Layout } = useTheme();
+  const { width } = useWindowDimensions();
 
-    return (
+  return (
+    <View style={[Layout.absolute]}>
       <TouchableOpacity
         style={[
           Layout.center,
           {
-            position: 'absolute',
             left: (y * width) / 7,
-            top: x * 60,
+            top: (x * width) / 7,
             width: width / 8.5,
-            backgroundColor: backgroundColor,
-            marginLeft: 5,
             height: 45,
             borderRadius: 5,
             borderWidth: 0.5,
             borderColor: Colors.textGray200,
+            backgroundColor: backgroundColor,
           },
         ]}
-        onPress={onSelectSeat}
+        onPress={() => onSelectSeat(seatNumber)}
       >
         <Text style={[Fonts.textSmall, Fonts.textCenter, { color: textColor }]}>
           {seatNumber}
         </Text>
       </TouchableOpacity>
-    );
-  },
-);
+    </View>
+  );
+};
+
+const MemoizedSeat = memo(Seat);
 
 const DisplaySeats: FC<ISeatListProps> = ({
   seatList,
   seatPicked,
   handleSelectSeat,
 }) => {
-  const { Layout } = useTheme();
-  const { height } = useWindowDimensions();
-
   const renderColor = useCallback(
     (seat: string, availability: string, type: string) => {
       const textColor =
@@ -78,86 +80,60 @@ const DisplaySeats: FC<ISeatListProps> = ({
         availability === 'AVAILABLE' ? Colors.white : Colors.warning;
 
       if (type === 'background') {
-        return seatPicked.includes(seat) ? Colors.orange : color;
+        return seat === seatPicked ? Colors.orange : color;
       } else {
-        return seatPicked.includes(seat) ? Colors.white : textColor;
+        return seat === seatPicked ? Colors.white : textColor;
       }
     },
     [seatPicked],
   );
 
-  const memoizedSeatList = useMemo(() => {
-    return seatList.map((seat: any, index: number) => (
-      <Seat
-        key={index}
-        seatNumber={seat.number}
+  const renderItem = useCallback(
+    ({ item }: any) => (
+      <MemoizedSeat
+        seatNumber={item.number}
         backgroundColor={renderColor(
-          seat.number,
-          seat.travelerPricing[0].seatAvailabilityStatus,
+          item.number,
+          item.travelerPricing[0]?.seatAvailabilityStatus,
           'background',
         )}
+        onSelectSeat={handleSelectSeat}
         textColor={renderColor(
-          seat.number,
-          seat.travelerPricing[0].seatAvailabilityStatus,
+          item.number,
+          item.travelerPricing[0].seatAvailabilityStatus,
           'text',
         )}
-        onSelectSeat={() => handleSelectSeat(seat.number)}
-        x={seat.coordinates.x}
-        y={seat.coordinates.y}
+        x={item.coordinates.x}
+        y={item.coordinates.y}
       />
-    ));
-  }, [seatList, seatPicked]);
+    ),
+    [seatPicked],
+  );
+  const keyExtractor = useCallback((item: any) => item.number, [seatPicked]);
 
   return (
-    <View style={[Layout.fill, { height: height * 2.1 }]}>
-      {memoizedSeatList}
-    </View>
+    <FlatList
+      data={seatList}
+      keyExtractor={keyExtractor}
+      initialNumToRender={200}
+      renderItem={renderItem}
+      extraData={seatPicked}
+    />
   );
 };
 
-const MemoizedDisplaySeats = React.memo(DisplaySeats);
-
-const Deck: FC<IDeckProps> = ({ seatList, pickedUserId }) => {
-  const dispatch = useDispatch();
-  const currentFlightInfos = useSelector((state: any) => state.flight);
-
-  const seatPicked = useMemo(() => {
-    const pickedSeats = new Set<string>();
-    currentFlightInfos.customers.forEach((item: ICustomerInfomations) => {
-      pickedSeats.add(item.seat);
-    });
-    return Array.from(pickedSeats);
-  }, [currentFlightInfos.customers]);
-
-  const handleSelectSeat = useCallback(
-    (seat: string) => {
-      const updatedInfos = currentFlightInfos.customers.map(
-        (item: ICustomerInfomations) => {
-          if (item.id === pickedUserId) {
-            return {
-              ...item,
-              seat: seat,
-            };
-          } else {
-            return item;
-          }
-        },
-      );
-      dispatch(
-        setFlightInfo({ ...currentFlightInfos, customers: updatedInfos }),
-      );
-    },
-    [currentFlightInfos, pickedUserId, seatPicked],
-  );
+const MemoizedDisplaySeats = memo(DisplaySeats);
+const Deck: FC<IDeckProps> = ({ seatList, seatPicked, onSeatPicked }) => {
+  const { height, width } = useWindowDimensions();
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <View style={{ height: height * 1.9, width: width }}>
       <MemoizedDisplaySeats
         seatList={seatList}
         seatPicked={seatPicked}
-        handleSelectSeat={handleSelectSeat}
+        handleSelectSeat={onSeatPicked}
       />
-    </ScrollView>
+    </View>
   );
 };
 

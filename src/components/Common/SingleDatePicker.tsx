@@ -2,33 +2,30 @@ import React from 'react';
 import { View } from 'react-native';
 import { DatePickerModal } from 'react-native-paper-dates';
 
-type RangeDatePickerProps = {
+type SinglePickerProps = {
   isOpen: boolean;
   onDismiss: () => void;
-  onConfirm: ({ startDate, endDate }: any) => void;
-  startDate: Date | undefined;
-  endDate: Date | undefined;
+  onConfirm: ({ date }: any) => void;
+  date?: Date;
 };
 
-const RangeDatePicker = ({
+const SingleDatePicker = ({
   isOpen,
   onDismiss,
-  startDate,
-  endDate,
+  date,
   onConfirm,
-}: RangeDatePickerProps) => {
+}: SinglePickerProps) => {
   return (
     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
       <DatePickerModal
         locale="custom"
-        mode='range'
+        mode="single"
         visible={isOpen}
         onDismiss={onDismiss}
-        startDate={startDate}
-        endDate={endDate}
+        date={date}
         onConfirm={onConfirm}
       />
     </View>
   );
 };
-export default RangeDatePicker;
+export default SingleDatePicker;

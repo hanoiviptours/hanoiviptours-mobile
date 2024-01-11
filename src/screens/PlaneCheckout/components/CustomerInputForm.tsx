@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { RenderHoldTimeOuter } from './PlaneHoldTime';
 import { InputForm, RadioButtons, Button } from '@/components';
 import { setFlightInfo } from '@/store/flight';
-import { ICustomerInfomations } from '@/store/flight';
+import { ICustomerInfomations } from 'types/flight';
 const MemoInputForm = memo(InputForm);
 
 type IPlaneCustomerInput = {

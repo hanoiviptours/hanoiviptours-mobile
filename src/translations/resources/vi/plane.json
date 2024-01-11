@@ -20,11 +20,11 @@
   "subReg": "Đăng ký thẻ Hội viên với hãng hàng không",
   "return": "Điều kiện hoàn hủy",
   "subReturn": "Xem điều kiện hoàn hủy của các hàng hàng không",
-  "adult": "Người lớn",
+  "adults": "Người lớn",
   "adultAge": "Trên 12 tuổi",
   "children": "Trẻ em",
   "childrenAge": "Từ 2 đến 12 tuổi",
-  "baby": "Em bé",
+  "infants": "Em bé",
   "babyAge": "Dưới 2 tuổi",
   "sort": "Sắp xếp",
   "filter": "Bộ Lọc",
@@ -47,5 +47,10 @@
   "name": "Đệm và Tên (không dấu)*",
   "done": "Hoàn tất",
   "seat": "Ghế",
-  "notPickSeat": "Chưa chọn chỗ ngồi"
+  "notPickSeat": "Chưa chọn chỗ ngồi",
+  "departure": "Chiều đi",
+  "returnLocation": "Chiều về",
+  "ECONOMY": "Phổ thông",
+  "PREMIUM_ECONOMY": "Phổ thông đặc biệt",
+  "BUSINESS": "Thương gia"
 }

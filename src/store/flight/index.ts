@@ -1,40 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IAirlineInfo } from '@/screens/PlaneList/ulities';
+import { IFlightState } from 'types/flight';
 
-export interface ICustomerInfomations {
-  id: number;
-  gender: 'MALE' | 'FEMALE';
-  firstName: string;
-  lastName: string;
-  key: 'adult' | 'children' | 'baby';
-  seat: string;
-}
-
-interface FlightState extends IAirlineInfo {
-  customers: ICustomerInfomations[];
-}
-
-const initialState: FlightState = {
-  name: '',
-  airport: '',
-  landingAirport: '',
-  icon: '',
-  aircraftName: '',
-  durationTime: '',
-  takeOffTime: '',
-  landingTime: '',
-  airportLocation: '',
-  landingAirportLocation: '',
-  flightCodeNumber: '',
-  flightTotalPrice: '',
-  flightDateTime: '',
+const initialState: IFlightState = {
   customers: [],
+  availableFares: [],
 };
 const flightSlice = createSlice({
   name: 'flight',
   initialState,
   reducers: {
-    setFlightInfo: (state, action: PayloadAction<Partial<FlightState>>) => {
+    setFlightInfo: (state, action: PayloadAction<Partial<IFlightState>>) => {
       return { ...state, ...action.payload };
     },
     clearFlightInfo: () => {

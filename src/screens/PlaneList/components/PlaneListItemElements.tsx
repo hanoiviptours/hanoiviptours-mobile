@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, Text } from 'react-native';
 import { useTheme } from '@/hooks';
 import { Colors } from '@/theme/Variables';
@@ -41,7 +41,7 @@ export const FlightTimeRender: React.FC<IFlightTimeRenderProps> = ({
           Gutters.tinyLMargin,
           Gutters.tinyRMargin,
           {
-            width: '23%',
+            width: '25%',
             borderBottomColor: Colors.textGray200,
             borderBottomWidth: 1,
             paddingBottom: 3,
@@ -73,7 +73,7 @@ export const FlightDestinationRender: React.FC<IFlightTimeRenderProps> = ({
         style={[
           Fonts.textSuperTiny,
           Layout.center,
-          { paddingLeft: 13, paddingRight: 13 },
+          { paddingLeft: 15, paddingRight: 13 },
         ]}
       >
         {flightType}
@@ -99,13 +99,15 @@ export const FlightBrandRender: React.FC<IFlightBrandProps> = ({
   fontSize = 'tiny',
 }) => {
   const { Fonts, Layout } = useTheme();
-  const textStyle = fontSize === 'tiny' ? Fonts.textTiny : Fonts.textSmall;
+  const textStyle = useCallback(() => {
+    return fontSize === 'tiny' ? Fonts.textTiny : Fonts.textSmall;
+  }, [fontSize]);
 
   return (
     <>
       <View style={[Layout.row, Layout.alignItemsCenter, { paddingLeft: 3 }]}>
         {icon}
-        <Text style={[textStyle, { paddingLeft: 5, paddingTop: 5 }]}>
+        <Text style={[textStyle(), { paddingLeft: 5, paddingTop: 5 }]}>
           {brand}
         </Text>
       </View>
@@ -113,7 +115,7 @@ export const FlightBrandRender: React.FC<IFlightBrandProps> = ({
       {planeName && (
         <Text
           style={[
-            textStyle,
+            textStyle(),
             Layout.alignItemsStart,
             Fonts.textCapitalize,
             { paddingTop: 5 },
@@ -125,7 +127,6 @@ export const FlightBrandRender: React.FC<IFlightBrandProps> = ({
     </>
   );
 };
-
 export const FlightPriceRender: React.FC<
   IFlightTimeRenderProps & {
     flightNumber: string;

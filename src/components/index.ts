@@ -13,6 +13,7 @@ export { default as Avatar } from './Common/Avatar';
 export { default as Switch } from './Common/Switch';
 export { default as BottomDrawer } from './Common/BottomDrawer';
 export { default as RangeDatePicker } from './Common/RangeDatePicker';
+export { default as SingleDatePicker } from './Common/SingleDatePicker';
 export { default as NumberChoosing } from './Common/NumberChoosing';
 export { default as BoxIconText } from './Common/BoxIconText';
 export { default as SliderPicker } from './Common/SliderPicker';

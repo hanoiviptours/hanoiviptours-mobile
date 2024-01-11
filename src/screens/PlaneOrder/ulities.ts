@@ -1,6 +1,6 @@
 export const createNewCustomerInfos = (
   customer: number,
-  key: 'adult' | 'children' | 'baby',
+  key: 'adults' | 'children' | 'infants',
 ) => {
   return Array.from({ length: customer }, (_, index) => ({
     id: index,

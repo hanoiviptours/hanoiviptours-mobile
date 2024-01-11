@@ -1,15 +1,19 @@
-import React, { FC, useState, useCallback } from 'react';
+import React, { FC, useState, useCallback, useEffect } from 'react';
 import { Text, View, useWindowDimensions } from 'react-native';
 import { useTheme } from '@/hooks';
 import { Colors } from '@/theme/Variables';
 import { BoxIconText } from '@/components';
-import { BottomDrawer } from '@/components';
+import { BottomDrawer, Button } from '@/components';
 import { useBottomSheetModal } from '@/hooks';
+import { useTranslation } from 'react-i18next';
 import SeatMap from '../components/SeatMap/SeatMap';
+import Luggage from '../components/Luggage/Luggage';
+import { useDoFlightSeatmapMutation } from '@/services/modules/flights/flight';
 
 export interface IServices {
+  data: any;
   type: 'luggage' | 'food' | 'seat';
-  closeModal : () => void;
+  closeModal: () => void;
 }
 
 const services = [
@@ -45,21 +49,42 @@ const services = [
   },
 ];
 
-const RenderComponentByServies: FC<IServices> = ({ type, closeModal }) => {
+const RenderComponentByServies: FC<IServices> = ({
+  data,
+  type,
+  closeModal,
+}) => {
   const handleSubmit = useCallback(() => {
     closeModal();
   }, []);
   if (type === 'seat') {
-    return <SeatMap handleSubmit={handleSubmit} />;
+    return <SeatMap data={data} handleSubmit={handleSubmit} />;
+  } else if (type === 'luggage') {
+    return <Luggage handleSubmit={handleSubmit} />;
   }
   return null; // Return null for other types or handle them accordingly
 };
 
-const PlaneServices = () => {
+const PlaneServices: FC<{ servicesBody: any }> = ({ servicesBody }) => {
   const { Gutters, Layout, Fonts } = useTheme();
   const { width } = useWindowDimensions();
   const [pickedService, setPickedService] = useState<string>('seat');
-  console.log('pickedService', pickedService);
+
+  const [seatMap, { data: seatMapDatas, isLoading }] =
+    useDoFlightSeatmapMutation();
+
+  useEffect(() => {
+    const fetchSeatMapData = async () => {
+      try {
+        await seatMap(servicesBody);
+      } catch (error: any) {
+        console.log('error', error.data);
+      }
+    };
+
+    fetchSeatMapData();
+  }, [servicesBody]);
+  const { t } = useTranslation(['plane']);
 
   const { bottomSheetModalRef, presentModal, closeModal } =
     useBottomSheetModal();
@@ -73,7 +98,7 @@ const PlaneServices = () => {
   );
 
   return (
-    <View style={[Layout.fullWidth, Layout.fullHeight, Gutters.largeBPadding]}>
+    <View style={[Layout.col, Layout.fullHeight, Layout.justifyContentBetween]}>
       <View>
         <Text
           style={[
@@ -96,39 +121,51 @@ const PlaneServices = () => {
         >
           Dịch vụ bổ sung không áp dụng cho em bé dưới 2 tuổi
         </Text>
-      </View>
-      <View style={[Layout.row, Layout.fullWidth, Layout.center]}>
-        {services.map((item, index) => (
-          <BoxIconText
-            key={index}
-            width={width / 3.5}
-            height={110}
-            boxColor={Colors.textGray100}
-            styles={{
-              borderWidth: 0.5,
-              borderColor: Colors.textGray300,
-              margin: 5,
-            }}
-            textStyles={{ color: Colors.black, paddingTop: 10 }}
-            icon={{
-              type: item.icon.type,
-              name: item.icon.name,
-              size: item.icon.size,
-              color: item.icon.color,
-              svg: undefined,
-            }}
-            text={item.text}
-            onPress={() => handlePickService(item.type)}
-          />
-        ))}
 
-        <BottomDrawer snapPoint="90%" ref={bottomSheetModalRef}>
-          <RenderComponentByServies
-            type={pickedService as 'luggage' | 'food' | 'seat'}
-            closeModal={closeModal}
-          />
-        </BottomDrawer>
+        <View style={[Layout.row, Layout.justifyContentCenter]}>
+          {services.map((item, index) => (
+            <BoxIconText
+              key={index}
+              width={width / 3.5}
+              height={110}
+              boxColor={Colors.textGray100}
+              styles={{
+                borderWidth: 0.5,
+                borderColor: Colors.textGray300,
+                margin: 5,
+              }}
+              textStyles={{ color: Colors.black, paddingTop: 10 }}
+              icon={{
+                type: item.icon.type,
+                name: item.icon.name,
+                size: item.icon.size,
+                color: item.icon.color,
+                svg: undefined,
+              }}
+              text={item.text}
+              onPress={() => handlePickService(item.type)}
+            />
+          ))}
+        </View>
       </View>
+
+      <Button
+        viewStyle={[Gutters.smallBMargin]}
+        title={t('plane:step3')}
+        height={45}
+        type="primary"
+        align="center"
+        radius={30}
+        // onPress={handleSubmit}
+      />
+
+      <BottomDrawer snapPoint="90%" ref={bottomSheetModalRef}>
+        <RenderComponentByServies
+          type={pickedService as 'luggage' | 'food' | 'seat'}
+          data={seatMapDatas}
+          closeModal={closeModal}
+        />
+      </BottomDrawer>
     </View>
   );
 };

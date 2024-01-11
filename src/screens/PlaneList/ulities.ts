@@ -1,4 +1,3 @@
-import { VjIcon, QhIcon, VnaIcon } from '@/theme/assets/icons';
 import { formatMoney, formatDate } from '@/utils';
 
 type AirlinesDictionary = {
@@ -107,7 +106,7 @@ const airlinesDictionary: AirlinesDictionary = {
 type ILocationTime = {
   iataCode: string;
   terminal: string;
-  at: Date;
+  at: string;
 };
 export interface IAirlineInfo {
   name?: string;
@@ -133,7 +132,7 @@ export const getAirlineInfos = (
   flightNumber: string,
   price: string,
   currency: string,
-  flightDateTime: Date,
+  flightDateTime: Date | string,
 ): IAirlineInfo => {
   const { carriers, aircraft, locations } = airlinesDictionary;
   const { at: takeOffTime, iataCode: airportLocation } = departure;
@@ -146,7 +145,9 @@ export const getAirlineInfos = (
     const matchesHour = duration.match(hourRegex);
     const matchesMinute = duration.match(minuteRegex);
 
-    const formattedDuration = `${matchesHour?.[1]}h ${matchesMinute?.[1]}m`;
+    const formattedDuration = `${matchesHour?.[1]}h ${
+      matchesMinute ? matchesMinute?.[1] : 0
+    }m`;
 
     return formattedDuration;
   };
@@ -154,9 +155,9 @@ export const getAirlineInfos = (
 
   return {
     name: carriers[carrierCode],
-    airport: locations[airportLocation].airport,
-    landingAirport: locations[landingAirportLocation].airport,
-    icon: airlinesDictionary.icons[carrierCode],
+    airport: locations[airportLocation]?.airport,
+    landingAirport: locations[landingAirportLocation]?.airport,
+    icon: airlinesDictionary?.icons[carrierCode],
     aircraftName: aircraft[aircraftNumber],
     durationTime: formatDuration(duration),
     takeOffTime: formatDate(takeOffTime, 'HH:mm'),

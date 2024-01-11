@@ -12,7 +12,8 @@ import {
 import { Stepper } from '@/components';
 import { useSelector } from 'react-redux';
 
-const PlaneCheckout = () => {
+const PlaneCheckout = ({ route }: any) => {
+  const { servicesBody } = route.params;
   const checkoutSteps = useSelector((state: any) => state.steps);
 
   const { Layout } = useTheme();
@@ -25,7 +26,7 @@ const PlaneCheckout = () => {
     },
     {
       label: t('plane:step2'),
-      component: <PlaneServices />,
+      component: <PlaneServices servicesBody={servicesBody} />,
     },
     {
       label: t('plane:step3'),
