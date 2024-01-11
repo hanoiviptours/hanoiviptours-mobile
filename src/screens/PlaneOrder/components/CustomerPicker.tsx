@@ -1,35 +1,34 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { TouchableOpacity, View, Text } from 'react-native';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useTheme } from '@/hooks';
-import { Colors } from '../../../theme/Variables';
 import { BottomDrawer } from '@/components';
 import { NumberChoosing, Button, DividerForm } from '@/components';
 import { useTranslation } from 'react-i18next';
 import ExtraUtils from './ExtraUtils';
 import { GroupCustomer } from '@/theme/assets/icons';
-import { ICustomerInfomations, setFlightInfo } from '@/store/flight';
+import { ICustomerInfomations } from 'types/flight';
+import { setFlightInfo } from '@/store/flight';
 import { createNewCustomerInfos } from '../ulities';
-
 type CardProps = {
   bottomSheetModalRef: any;
 };
 type ICustomerInfo = {
-  adult: number;
+  adults: number;
   children: number;
-  baby: number;
+  infants: number;
 };
 const iconSize = 30;
 
 const CustomerPicker = ({ bottomSheetModalRef }: CardProps) => {
-  const { Layout, Gutters, Fonts, darkMode: isDark } = useTheme();
+  const { Layout, Gutters } = useTheme();
   const dispatch = useDispatch();
   const { t } = useTranslation(['plane']);
 
   const [customerValue, setCustomerValue] = useState<ICustomerInfo>({
-    adult: 1,
+    adults: 1,
     children: 0,
-    baby: 0,
+    infants: 0,
   });
 
   const handleNumberChange = useCallback(
@@ -42,21 +41,26 @@ const CustomerPicker = ({ bottomSheetModalRef }: CardProps) => {
     [setCustomerValue],
   );
 
-  const newAdultCustomers = createNewCustomerInfos(
-    customerValue.adult,
-    'adult',
-  );
-  const newChildrenCustomers = createNewCustomerInfos(
-    customerValue.children,
-    'children',
-  );
-  const newBabyCustomers = createNewCustomerInfos(customerValue.baby, 'baby');
-
-  const newCustomerValues: ICustomerInfomations[] = [
-    ...newAdultCustomers,
-    ...newChildrenCustomers,
-    ...newBabyCustomers,
-  ];
+  const newCustomerValues: ICustomerInfomations[] = useMemo(() => {
+    const newAdultsCustomers = createNewCustomerInfos(
+      customerValue.adults,
+      'adults',
+    );
+    const newChildrenCustomers = createNewCustomerInfos(
+      customerValue.children,
+      'children',
+    );
+    const newInfantsCustomers = createNewCustomerInfos(
+      customerValue.infants,
+      'infants',
+    );
+    const newValues = [
+      ...newAdultsCustomers,
+      ...newChildrenCustomers,
+      ...newInfantsCustomers,
+    ];
+    return newValues;
+  }, [customerValue.adults, customerValue.children, customerValue.infants]);
 
   useEffect(() => {
     dispatch(setFlightInfo({ customers: newCustomerValues }));
@@ -72,12 +76,12 @@ const CustomerPicker = ({ bottomSheetModalRef }: CardProps) => {
       iconRight: (
         <NumberChoosing
           iconSize={iconSize}
-          value={customerValue.adult}
-          onValueChange={newValue => handleNumberChange('adult', newValue)}
+          value={customerValue.adults}
+          onValueChange={newValue => handleNumberChange('adults', newValue)}
         />
       ),
       subText: t('plane:adultAge'),
-      text: t('plane:adult'),
+      text: t('plane:adults'),
     },
     {
       iconLeft: null,
@@ -96,14 +100,15 @@ const CustomerPicker = ({ bottomSheetModalRef }: CardProps) => {
       iconRight: (
         <NumberChoosing
           iconSize={iconSize}
-          value={customerValue.baby}
-          onValueChange={newValue => handleNumberChange('baby', newValue)}
+          value={customerValue.infants}
+          onValueChange={newValue => handleNumberChange('infants', newValue)}
         />
       ),
       subText: t('plane:babyAge'),
-      text: t('plane:baby'),
+      text: t('plane:infants'),
     },
   ];
+
   return (
     <BottomDrawer snapPoint="48%" ref={bottomSheetModalRef}>
       <View style={[Layout.fill, Layout.col]}>

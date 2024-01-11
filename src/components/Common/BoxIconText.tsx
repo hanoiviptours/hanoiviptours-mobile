@@ -36,9 +36,9 @@ type IBoxIconTextProps = {
   boxColor: string;
   styles?: any;
   textStyles?: any;
-  icon: IconProps;
-  text: string;
-  subText?: string;
+  icon?: IconProps;
+  text: string | React.ReactNode;
+  subText?: string | React.ReactNode;
   onPress?: () => void;
 };
 const BoxIconText: FC<IBoxIconTextProps> = ({

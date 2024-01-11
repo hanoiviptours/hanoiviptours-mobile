@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { View, TouchableOpacity } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import { useSelector, useDispatch } from 'react-redux';
 import { useTheme } from '@/hooks';
 import { Colors } from '@/theme/Variables';
 import { ShadowBox } from '@/components';
@@ -13,17 +12,21 @@ import {
   RenderIcon,
 } from '../components/PlaneListItemElements';
 import { getAirlineInfos } from '../ulities';
-import { setFlightInfo } from '@/store/flight';
+import { ICustomerInfomations } from 'types/flight';
+import { formatDate } from '@/utils';
+import { IFlightResponseInfos } from 'types/flight';
 
 type IPlaneListItemProps = {
-  flightInfos: any;
+  flightInfos: IFlightResponseInfos;
   navigation: any;
 };
 
 const PlaneListItem = ({ flightInfos, navigation }: IPlaneListItemProps) => {
-  const dispatch = useDispatch();
-  const { t } = useTranslation(['plane']);
   const { Gutters, Layout } = useTheme();
+
+  const currentFlightInfos = useSelector((state: any) => state.flight);
+  const currentCustomer = currentFlightInfos.customers;
+
   const flightSegments = flightInfos.itineraries[0].segments[0];
   const flightPrice = flightInfos.price;
 
@@ -52,9 +55,32 @@ const PlaneListItem = ({ flightInfos, navigation }: IPlaneListItemProps) => {
   } = airlineInfos;
 
   const navigationToDetail = useCallback(() => {
-    dispatch(setFlightInfo(airlineInfos));
-    navigation.navigate('PlaneDetail');
-  }, [airlineInfos]);
+    const flightAvailableBody = {
+      originDestinations: {
+        id: '1',
+        originLocationCode: flightSegments.departure.iataCode,
+        destinationLocationCode: flightSegments.arrival.iataCode,
+        departureDateTime: {
+          date: formatDate(flightSegments.departure.at, 'YYYY-MM-DD'),
+          time: formatDate(flightSegments.departure.at, 'HH:mm:ss'),
+        },
+      },
+      travelers: currentCustomer.map(
+        (item: ICustomerInfomations, index: number) => ({
+          id: (index + 1).toString(),
+          travelerType: item.key.toUpperCase().replace('S', ''),
+        }),
+      ),
+      carrierCode: flightSegments.carrierCode,
+      number: flightSegments.number,
+      cabin: flightInfos.travelerPricings[0].fareDetailsBySegment[0].cabin,
+    };
+    navigation.navigate('PlaneDetail', {
+      flightAvailableBody: flightAvailableBody,
+      airlineInfos: airlineInfos,
+      currentFlight: flightInfos,
+    });
+  }, [flightInfos, currentCustomer, navigation]);
 
   return (
     <TouchableOpacity onPress={navigationToDetail}>

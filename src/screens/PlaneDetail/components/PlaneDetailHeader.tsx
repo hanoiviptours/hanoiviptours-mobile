@@ -1,7 +1,5 @@
 import React, { forwardRef } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/hooks';
 import { Colors } from '@/theme/Variables';
 import { Image, ShadowBox, Icon } from '@/components';
@@ -10,8 +8,11 @@ import {
   FlightBrandRender,
   RenderIcon,
 } from '../../PlaneList/components/PlaneListItemElements';
+import { IAirlineInfo } from '../../PlaneList/ulities';
+
 type PlaneListHeaderProps = {
   pan?: any;
+  airlineInfos: IAirlineInfo;
 };
 
 type IFlightHoursDestination = {
@@ -54,8 +55,7 @@ const FlightHoursDestination: React.FC<IFlightHoursDestination> = ({
   );
 };
 
-const FlightContents: React.FC<PlaneListHeaderProps> = () => {
-  const flightInfo = useSelector((state: any) => state.flight);
+const FlightContents: React.FC<PlaneListHeaderProps> = ({ airlineInfos }) => {
   const { Gutters, Layout, Fonts } = useTheme();
 
   const {
@@ -63,16 +63,14 @@ const FlightContents: React.FC<PlaneListHeaderProps> = () => {
     airport,
     landingAirport,
     icon,
-    aircraftName,
     durationTime,
     takeOffTime,
     landingTime,
     airportLocation,
     landingAirportLocation,
     flightCodeNumber,
-    flightTotalPrice,
     flightDateTime,
-  } = flightInfo;
+  } = airlineInfos;
   return (
     <TouchableOpacity>
       <View
@@ -172,38 +170,39 @@ const FlightContents: React.FC<PlaneListHeaderProps> = () => {
   );
 };
 
-const PlaneDetailHeader = forwardRef(({ pan }: PlaneListHeaderProps, ref) => {
-  const { t } = useTranslation(['plane']);
-  const { Gutters, Layout, Fonts } = useTheme();
-  return (
-    <>
-      <Image
-        pan={pan}
-        height={200}
-        width="100%"
-        mode="cover"
-        src="flightCover"
-        isAnimated
-      />
+const PlaneDetailHeader = forwardRef(
+  ({ pan, airlineInfos }: PlaneListHeaderProps, ref) => {
+    const { Gutters } = useTheme();
+    return (
+      <>
+        <Image
+          pan={pan}
+          height={200}
+          width="100%"
+          mode="cover"
+          src="flightCover"
+          isAnimated
+        />
 
-      <ShadowBox
-        style={[
-          Gutters.tinyLMargin,
-          Gutters.tinyRMargin,
-          {
-            backgroundColor: Colors.white,
-            borderRadius: 10,
-            height: 'auto',
-            maxHeight: 170,
-            top: -43,
-            padding: 0,
-          },
-        ]}
-      >
-        <FlightContents />
-      </ShadowBox>
-    </>
-  );
-});
+        <ShadowBox
+          style={[
+            Gutters.tinyLMargin,
+            Gutters.tinyRMargin,
+            {
+              backgroundColor: Colors.white,
+              borderRadius: 10,
+              height: 'auto',
+              maxHeight: 170,
+              top: -43,
+              padding: 0,
+            },
+          ]}
+        >
+          <FlightContents airlineInfos={airlineInfos} />
+        </ShadowBox>
+      </>
+    );
+  },
+);
 
 export default PlaneDetailHeader;

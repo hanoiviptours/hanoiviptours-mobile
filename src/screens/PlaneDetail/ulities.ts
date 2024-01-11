@@ -25,7 +25,7 @@ export const FlightDetailGuidance = ({
     size: iconSize,
     color: Colors.primaryColor,
     svg: null,
-    text: t?.('plane:seatLeft', { seatsLeft }) ?? '', // Add nullish coalescing operator
+    text: t?.('plane:seatLeft', { seatsLeft }) ?? '',
   },
   {
     type: 'material',
@@ -33,7 +33,7 @@ export const FlightDetailGuidance = ({
     size: iconSize,
     color: Colors.textGray200,
     svg: null,
-    text: t?.('plane:handLuggage') ?? '', // Add nullish coalescing operator
+    text: t?.('plane:handLuggage') ?? '',
   },
   {
     type: 'material',
@@ -41,16 +41,7 @@ export const FlightDetailGuidance = ({
     size: iconSize,
     color: Colors.textGray200,
     svg: null,
-    text: t?.('plane:changeTicket') ?? '', // Add nullish coalescing operator
-  },
-  // END: abpxx6d04wxr
-  {
-    type: 'material',
-    name: 'airplane-ticket',
-    size: iconSize,
-    color: Colors.textGray200,
-    svg: null,
-    text: t?.('plane:refundTicket') ?? "",
+    text: t?.('plane:changeTicket') ?? '',
   },
   {
     type: 'material',
@@ -58,6 +49,14 @@ export const FlightDetailGuidance = ({
     size: iconSize,
     color: Colors.textGray200,
     svg: null,
-    text: t?.('plane:changingFlights') ?? "",
+    text: t?.('plane:refundTicket') ?? '',
+  },
+  {
+    type: 'material',
+    name: 'airplane-ticket',
+    size: iconSize,
+    color: Colors.textGray200,
+    svg: null,
+    text: t?.('plane:changingFlights') ?? '',
   },
 ];

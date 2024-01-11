@@ -16,13 +16,17 @@ import { MMKV } from 'react-native-mmkv';
 import { api } from '../services/api';
 import theme from './theme';
 import auth from './auth';
+import amadeus from './amadeus';
 import flight from './flight';
+import flightSearch from './flightSearch';
 import steps from './checkoutsteps';
 
 const reducers = combineReducers({
   theme,
+  amadeus,
   auth,
   flight,
+  flightSearch,
   steps,
   [api.reducerPath]: api.reducer,
 });

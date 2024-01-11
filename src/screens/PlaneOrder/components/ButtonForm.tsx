@@ -2,7 +2,7 @@ import { Icon } from '@/components';
 
 import { TFunction } from 'i18next';
 import { Switch } from '@/components';
-import { ICustomerInfomations } from '@/store/flight';
+import { ICustomerInfomations } from 'types/flight';
 
 const iconSize = 30;
 
@@ -97,7 +97,7 @@ const ButtonForm = ({
     iconRight: <Switch isEnabled={isEnabled} onSwitch={onSwitch} />,
     subText: t('plane:departureDate'),
     text: pickedValue?.startDate,
-    onPress: () => pressEvent.handleDatePicker('single'),
+    onPress: () => pressEvent.handleDatePicker(isEnabled ? 'range' : 'single'),
   },
   {
     iconLeft: (

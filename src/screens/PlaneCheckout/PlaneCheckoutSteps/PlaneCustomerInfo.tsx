@@ -8,7 +8,7 @@ import PlaneHoldTime from '../components/PlaneHoldTime';
 import { Button, DividerButtonForm, Icon, BottomDrawer } from '@/components';
 import CustomerInputForm from '../components/CustomerInputForm';
 import { useBottomSheetModal } from '@/hooks';
-import { ICustomerInfomations } from '@/store/flight';
+import { ICustomerInfomations } from 'types/flight';
 import { setSteps } from '@/store/checkoutsteps';
 
 const MemoizedCustomerInput = memo(CustomerInputForm);
@@ -24,7 +24,7 @@ const initialUserInfomations: ICustomerInfomations = {
   gender: 'MALE',
   firstName: '',
   lastName: '',
-  key: 'adult',
+  key: 'adults',
   seat: '',
 };
 const CustomerInput: FC<CustomerInputProps> = ({ label, title }) => {

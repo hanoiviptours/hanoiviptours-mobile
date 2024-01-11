@@ -1,22 +1,30 @@
-import React, { Dispatch, FC, SetStateAction, useCallback } from 'react';
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useCallback,
+  useMemo,
+} from 'react';
 import { View, Text } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { SliderPicker, Icon, IconBox } from '@/components';
+import { SliderPicker, IconBox, Icon } from '@/components';
 import { Colors } from '@/theme/Variables';
-import { setFlightInfo } from '@/store/flight';
 
 import { useTheme } from '@/hooks';
-import { ICustomerInfomations } from '@/store/flight';
+import { ICustomerInfomations } from 'types/flight';
 
 interface ISliderItemPicker {
   setPickedUserId: Dispatch<SetStateAction<number>>;
+  seatPicked?: string;
+  pickedUserId: number;
+  onSeatPicked: (seat: string) => void;
 }
 
-type ISeatPicker = {
+interface ISeatPicker extends ISliderItemPicker {
   item: ICustomerInfomations;
   index: number;
-};
+}
 
 const legend = [
   {
@@ -41,14 +49,39 @@ const legend = [
     svg: null,
   },
 ];
-const SliderItemPicker: FC<ISliderItemPicker> = ({ setPickedUserId }) => {
+
+const SliderItemPicker: FC<ISliderItemPicker> = ({
+  setPickedUserId,
+  pickedUserId,
+  seatPicked,
+  onSeatPicked,
+}) => {
   const { Layout, Fonts, Gutters } = useTheme();
   const currentFlightInfos = useSelector((state: any) => state.flight);
-  const currentCustomer = currentFlightInfos?.customers;
+
+  const currentCustomer = useMemo(() => {
+    const getCurrentCustomer = currentFlightInfos?.customers?.map(
+      (item: { id: number }) => {
+        if (pickedUserId === item.id) {
+          return {
+            ...item,
+            seat: seatPicked,
+          };
+        }
+      },
+    );
+    return getCurrentCustomer;
+  }, [currentFlightInfos.customers, seatPicked, pickedUserId]);
 
   const onSnapToItem = useCallback((item: any) => setPickedUserId(item), []);
   const CallbackListItem = useCallback(
-    (props: ISeatPicker) => <CustomerSeatPicker {...props} />,
+    (props: ISeatPicker) => (
+      <CustomerSeatPicker
+        {...props}
+        pickedUserId={pickedUserId}
+        onSeatPicked={onSeatPicked}
+      />
+    ),
     [currentCustomer],
   );
   return (
@@ -61,14 +94,14 @@ const SliderItemPicker: FC<ISliderItemPicker> = ({ setPickedUserId }) => {
         },
       ]}
     >
-      <SliderPicker
-        onSnapToItem={onSnapToItem}
-        renderItem={CallbackListItem}
-        data={currentCustomer}
-      />
       <View
         style={[Layout.row, Layout.justifyContentBetween, Gutters.tinyPadding]}
       >
+        <SliderPicker
+          onSnapToItem={onSnapToItem}
+          renderItem={CallbackListItem}
+          data={currentCustomer}
+        />
         {legend.map((item, index) => (
           <IconBox
             key={index}
@@ -94,31 +127,20 @@ const SliderItemPicker: FC<ISliderItemPicker> = ({ setPickedUserId }) => {
 
 export default SliderItemPicker;
 
-const CustomerSeatPicker: FC<ISeatPicker> = ({ item, index }) => {
-  const dispatch = useDispatch();
+const CustomerSeatPicker: FC<ISeatPicker> = ({
+  item,
+  index,
+  pickedUserId,
+  onSeatPicked,
+}) => {
   const { t } = useTranslation(['plane']);
   const { Layout, Fonts, Gutters } = useTheme();
 
-  const currentFlightInfos = useSelector((state: any) => state.flight);
-
   const handleUnPickSeat = useCallback(() => {
-    const updatedCustomers = currentFlightInfos.customers.map(
-      (customer: ICustomerInfomations) => {
-        if (customer.id === item.id) {
-          return {
-            ...customer,
-            seat: '',
-          };
-        } else {
-          return { ...customer };
-        }
-      },
-    );
-
-    dispatch(
-      setFlightInfo({ ...currentFlightInfos, customers: updatedCustomers }),
-    );
-  }, [currentFlightInfos, item.id]);
+    if (item.id === pickedUserId) {
+      onSeatPicked('');
+    }
+  }, [item.id]);
 
   return (
     <View

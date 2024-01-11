@@ -14,11 +14,11 @@
   "subReg": "Register for a membership card with the airline",
   "return": "Refund and cancellation policy",
   "subReturn": "View refund and cancellation policies of various airlines",
-  "adult": "Adult",
+  "adults": "Adult",
   "adultAge": "From 12 years old",
   "children": "Children",
   "childrenAge": "From 2 to 12 years old",
-  "baby": "Baby",
+  "infants": "Baby",
   "babyAge": "Under 2 years old",
   "sort": "Sort",
   "filter": "Filter",
@@ -40,5 +40,10 @@
   "firstName": "First name",
   "done": "Done",
   "seat": "Seat",
-  "notPickSeat": "Plesse select a seat"
+  "notPickSeat": "Plesse select a seat",
+  "departure": "Departure",
+  "returnLocation": "Return",
+  "ECONOMY": "Economy",
+  "PREMIUM_ECONOMY": "Premium economy",
+  "BUSINESS": "business"
 }

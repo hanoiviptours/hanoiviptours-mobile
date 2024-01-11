@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { View, ScrollView, Text, Platform } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -7,6 +7,7 @@ import {
   DividerButtonForm,
   Button,
   RangeDatePicker,
+  SingleDatePicker,
 } from '@/components';
 import { useTheme, useBottomSheetModal } from '@/hooks';
 import { Colors } from '@/theme/Variables';
@@ -18,6 +19,9 @@ import { formatDate } from '@/utils';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Reverse } from '@/theme/assets/icons';
 import moment from 'moment';
+import { useDoFlightSearchMutation } from '@/services/modules/flights/flight';
+import { setFlightSearch } from '@/store/flightSearch';
+import { ICustomerInfomations } from 'types/flight';
 
 const currentDate = moment().toDate();
 const absoluteIcon = Platform.OS === 'ios' ? '-35%' : '-20%';
@@ -33,7 +37,7 @@ const PlaneOrder = ({ navigation }: any) => {
   const [dateMode, setDateMode] = useState<'single' | 'range'>('single');
   const [location, setLocation] = useState({
     origin: 'HAN',
-    destination: 'HCM',
+    destination: 'SGN',
   });
 
   const [isEnableRoundTrip, setIsEnableRoundTrip] = useState(false);
@@ -42,14 +46,29 @@ const PlaneOrder = ({ navigation }: any) => {
     endDate: currentDate,
   });
 
+  const [flightSearch, { data, isLoading, isSuccess }] =
+    useDoFlightSearchMutation();
+
+  useEffect(() => {
+    dispatch(
+      setFlightSearch({
+        data: data as any,
+        isSuccess: isSuccess,
+        isLoading: isLoading,
+      }),
+    );
+  }, [data]);
+
   const [openDatePicker, setOpenDatePicker] = useState(false);
 
   const onConfirm = useCallback(
-    ({ startDate, endDate }: Date | any) => {
+    ({ startDate, endDate, date }: Date | any) => {
+      dateMode === 'single'
+        ? setRange({ startDate: date })
+        : setRange({ startDate, endDate });
       setOpenDatePicker(false);
-      setRange({ startDate, endDate });
     },
-    [setOpenDatePicker, setRange],
+    [dateMode, openDatePicker],
   );
 
   const handleLocation = useCallback(
@@ -64,7 +83,7 @@ const PlaneOrder = ({ navigation }: any) => {
       setDateMode(dateMode);
       setOpenDatePicker(true);
     },
-    [dateMode],
+    [dateMode, openDatePicker],
   );
 
   const onDismiss = useCallback(() => {
@@ -92,6 +111,36 @@ const PlaneOrder = ({ navigation }: any) => {
   const handlePress = useCallback((value: number) => {
     setSelectedIndex(value);
   }, []);
+
+  const countCustomers = useCallback(
+    (key: 'adults' | 'children' | 'infants'): number => {
+      return currentUserInfos.customers.filter(
+        (item: ICustomerInfomations) => item.key === key,
+      ).length;
+    },
+    [currentUserInfos.customers],
+  );
+
+  const handleFlightSearch = useCallback(() => {
+    flightSearch({
+      originLocationCode: location.origin,
+      destinationLocationCode: location.destination,
+      departureDate: formatDate(range.startDate, 'YYYY-MM-DD'),
+      returnDate: isEnableRoundTrip
+        ? formatDate(range.endDate, 'YYYY-MM-DD')
+        : undefined,
+      adults: countCustomers('adults') || 1,
+      children: countCustomers('children'),
+      infants: countCustomers('infants'),
+      currencyCode: 'VND',
+    }).unwrap();
+
+    navigation.navigate('PlaneList', {
+      title: 'Hà Nội -> Thành phố Hồ Chí Minh',
+      subTitle: '1/10/2023 - 1 khách',
+    });
+  }, [location, range, isEnableRoundTrip]);
+
   return (
     <>
       <ScrollView
@@ -149,12 +198,7 @@ const PlaneOrder = ({ navigation }: any) => {
           type="primary"
           align="center"
           radius={30}
-          onPress={() =>
-            navigation.navigate('PlaneList', {
-              title: 'Hà Nội -> Thành phố Hồ Chí Minh',
-              subTitle: '1/10/2023 - 1 khách',
-            })
-          }
+          onPress={handleFlightSearch}
         />
         <View style={[Gutters.smallLMargin]}>
           <Text>Tiện ích khác</Text>
@@ -174,14 +218,22 @@ const PlaneOrder = ({ navigation }: any) => {
       </ScrollView>
       <CustomerPicker bottomSheetModalRef={bottomSheetModalRef} />
 
-      <RangeDatePicker
-        mode={dateMode}
-        isOpen={openDatePicker}
-        startDate={range.startDate}
-        endDate={range.endDate}
-        onConfirm={onConfirm}
-        onDismiss={onDismiss}
-      />
+      {dateMode === 'single' ? (
+        <SingleDatePicker
+          isOpen={openDatePicker}
+          date={range.startDate}
+          onConfirm={onConfirm}
+          onDismiss={onDismiss}
+        />
+      ) : (
+        <RangeDatePicker
+          isOpen={openDatePicker}
+          startDate={range.startDate}
+          endDate={range.endDate}
+          onConfirm={onConfirm}
+          onDismiss={onDismiss}
+        />
+      )}
     </>
   );
 };
