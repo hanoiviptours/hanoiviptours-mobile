@@ -13,7 +13,9 @@ import {
 } from 'redux-persist';
 import { MMKV } from 'react-native-mmkv';
 
-import { api } from '../services/api';
+import { api } from '../services/baseApi';
+import { amadeusApi } from '../services/amadeusApi';
+
 import theme from './theme';
 import auth from './auth';
 import amadeus from './amadeus';
@@ -21,7 +23,7 @@ import flight from './flight';
 import flightSearch from './flightSearch';
 import steps from './checkoutsteps';
 
-const reducers = combineReducers({
+const baseReducers = combineReducers({
   theme,
   amadeus,
   auth,
@@ -29,6 +31,7 @@ const reducers = combineReducers({
   flightSearch,
   steps,
   [api.reducerPath]: api.reducer,
+  [amadeusApi.reducerPath]: amadeusApi.reducer,
 });
 
 const storage = new MMKV();
@@ -53,16 +56,17 @@ const persistConfig = {
   whitelist: ['theme', 'auth'],
 };
 
-const persistedReducer = persistReducer(persistConfig, reducers);
+const persistedBaseReducer = persistReducer(persistConfig, baseReducers);
 
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: persistedBaseReducer,
+
   middleware: getDefaultMiddleware => {
     const middlewares = getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(api.middleware);
+    }).concat(api.middleware, amadeusApi.middleware);
 
     if (__DEV__ && !process.env.JEST_WORKER_ID) {
       const createDebugger = require('redux-flipper').default;

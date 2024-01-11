@@ -1,4 +1,4 @@
-import { api } from '../../api';
+import { api } from '../../baseApi';
 
 export type Login = {
   data?: loginItem;
@@ -25,10 +25,7 @@ export const authApi = api.injectEndpoints({
         method: 'POST',
         body,
       }),
-      transformResponse: (response: { data: Login }, meta, arg) =>
-        response.data,
-      // overrideExisting: true,
-      // invalidatesTags: [{ role: "Admin", id: "" }],
+      transformResponse: (response: { data: Login }) => response.data,
     }),
     doRegister: build.mutation<Register, Partial<Register>>({
       query: body => ({
@@ -36,7 +33,6 @@ export const authApi = api.injectEndpoints({
         method: 'POST',
         body,
       }),
-      // invalidatesTags: [{ role: "Admin", id: "" }],
     }),
   }),
 });

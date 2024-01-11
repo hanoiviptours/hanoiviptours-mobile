@@ -51,7 +51,7 @@ const useGetAvailableClasses = ({
       );
       setIsLoading(false);
     } catch (error) {
-      console.log('err', error);
+      console.log('failed to fetch Amadeus api', error);
     }
   }, [flightAvailableBody]);
 

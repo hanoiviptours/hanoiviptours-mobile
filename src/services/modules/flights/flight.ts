@@ -1,4 +1,4 @@
-import { api } from '../../api';
+import { amadeusApi } from '../../amadeusApi';
 import {
   IFlightParams,
   IFLightAvailabilitiesParams,
@@ -6,11 +6,11 @@ import {
   IFLightFarePriceResponse,
 } from 'types/flight';
 
-export const flightApi = api.injectEndpoints({
+export const flightApi = amadeusApi.injectEndpoints({
   endpoints: build => ({
     doFlightSearch: build.mutation<IFlightParams, Partial<IFlightParams>>({
       query: params => ({
-        url: `https://api.amadeus.com/v2/shopping/flight-offers`,
+        url: `/v2/shopping/flight-offers`,
         method: 'GET',
         params: {
           originLocationCode: params.originLocationCode,
@@ -32,7 +32,7 @@ export const flightApi = api.injectEndpoints({
       Partial<IFLightAvailabilitiesParams>
     >({
       query: body => ({
-        url: `https://api.amadeus.com/v1/shopping/availability/flight-availabilities`,
+        url: `/v1/shopping/availability/flight-availabilities`,
         method: 'POST',
         body: {
           originDestinations: [body.originDestinations],
@@ -64,7 +64,7 @@ export const flightApi = api.injectEndpoints({
       Partial<IFLightFarePriceResponse>
     >({
       query: body => ({
-        url: `https://api.amadeus.com/v1/shopping/flight-offers/pricing`,
+        url: `/v1/shopping/flight-offers/pricing`,
         method: 'POST',
         params: {
           forceClass: true,
@@ -85,7 +85,7 @@ export const flightApi = api.injectEndpoints({
 
     doFlightSeatmap: build.mutation<IFLightSeatmap, Partial<IFLightSeatmap>>({
       query: body => ({
-        url: `https://api.amadeus.com/v1/shopping/seatmaps`,
+        url: `/v1/shopping/seatmaps`,
         method: 'POST',
         body: {
           data: [body],
@@ -102,7 +102,7 @@ export const flightApi = api.injectEndpoints({
       Partial<IFlightParams>
     >({
       query: body => ({
-        url: `https://api.amadeus.com/v1/shopping/flight-offers/upselling`,
+        url: `/v1/shopping/flight-offers/upselling`,
         method: 'POST',
         body: {
           data: { type: 'flight-offers-upselling', flightOffers: [body] },

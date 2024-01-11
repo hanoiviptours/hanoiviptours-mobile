@@ -1,4 +1,4 @@
-import { api } from '../../api';
+import { api } from '../../baseApi';
 
 export type User = {
   id: number;

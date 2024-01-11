@@ -78,7 +78,7 @@ const useGetAvailableFares = ({ body, currentFlight }: IGetAvailableFares) => {
       setAvailableFares(fareAvailabilitiesPrices.reverse());
       setIsLoading(false);
     } catch (error) {
-      console.log('err', error);
+      console.log('failed to fetch Amadeus api', error);
     }
   }, [body, currentFlight, fareDetailsBySegment, farePrices]);
 
