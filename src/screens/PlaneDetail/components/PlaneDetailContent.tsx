@@ -47,9 +47,9 @@ const PlaneDetailContent: FC<IPlaneTicketClass> = ({
     price: string;
     numberOfBookableSeats: number;
   }>({
-    seat: availableFares[0].class,
-    price: availableFares[0].body.price.grandTotal,
-    numberOfBookableSeats: availableFares[0].numberOfBookableSeats,
+    seat: availableFares[0]?.class,
+    price: availableFares[0]?.body.price.grandTotal,
+    numberOfBookableSeats: availableFares[0]?.numberOfBookableSeats,
   });
   const { t } = useTranslation(['plane']);
 
@@ -69,11 +69,13 @@ const PlaneDetailContent: FC<IPlaneTicketClass> = ({
     [selectedTicketClass],
   );
   useEffect(() => {
-    handlePickedClassSeat(
-      availableFares[0].class,
-      availableFares[0].body.price.grandTotal,
-      availableFares[0].numberOfBookableSeats,
-    );
+    if (availableFares.length > 0) {
+      handlePickedClassSeat(
+        availableFares[0]?.class,
+        availableFares[0]?.body.price.grandTotal,
+        availableFares[0]?.numberOfBookableSeats,
+      );
+    }
   }, [availableFares]);
 
   const handlePickedTicketClass = useCallback((value: string) => {
